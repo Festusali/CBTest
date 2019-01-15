@@ -1,0 +1,340 @@
+/* Body styling */
+body {
+    text-align: left;
+    color: #000000;
+    background-color: #E6E6FA;
+    }
+
+/* Heading and sub-heading styling */
+h1, h3 {
+    text-align: left;
+    color: #04145a;
+    background-color: rgb(148, 160, 158);
+    }
+
+
+/* Link Styling */
+a {
+    color: #008cff;
+    text-decoration: none;
+    }
+
+
+/* Footer and foot note styling */
+.foot {
+    text-align: center;
+    color: #21440a;
+    background-color: azure;
+    border-style: groove;
+    border-width: 3px;
+    max-height: 10%;
+    border-color: #77b6e9;
+    border-radius: 2em;
+    padding: 5px;
+    margin: 5px 5px 5px 5px;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    overflow-x: auto;
+}
+
+
+
+/* navigation bar styling */
+.menu {
+    font-size: 18pt;
+    background-color: #a7cce64f;
+    list-style-type: none;
+    margin: 0;
+    padding: 2px 5px;
+    width: 175px;
+    position: fixed;
+    height: 350px;
+    overflow: auto;
+}
+
+/* List and links of menu bar styling */
+.menu li a {
+    width: 96%;
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    text-align: left;
+}
+
+.menu li a:active {
+    width: 96%;
+    background-color: rgb(22, 94, 24);
+    color: white;
+}
+
+.menu li a:hover:not(.active) {
+    width: 96%;
+    background-color: #555;
+    color: white;
+}
+
+
+.menu li a, .dropbtn {
+    width: 96%;
+    display: inline-block;
+}
+
+.menu li.dropdown {
+    width: 94%;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    background: linear-gradient(to right, rgb(52, 20, 104), rgba(13, 155, 250, 0.3));
+    width: 96%;
+    font-size: 16pt;
+    position: absolute;
+    min-width: 80px;
+    box-shadow: -2px -2px;
+}
+
+.dropdown-content a {
+    width: 96%;
+    color: black;
+    background-color: #a7cce64f;
+    padding: 4px 4px;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    width: 96%;
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    font-size: 16pt;
+    width: 96%;
+    background-color: #a7cce64f;
+    margin: 0;
+    padding: 0px;
+    display: block;
+}
+
+
+
+.pad-foot {
+    font-size: 2px;
+    min-height: 8%;
+    padding-bottom: 15%;
+}
+
+
+/* Main content styling */
+#content {
+    margin-left: 190px;
+    padding: 1px 10px 10px 10px;
+    max-height: 90%;
+    border: 3px groove #a7cce64f;
+    border-radius: 1.5em;
+    background-color: #f8fafc;
+    overflow-x: auto;
+}
+
+
+/* Logo styles */
+#logo {
+    font-size: 25px;
+    text-align: center;
+    width: auto;
+    float: left;
+    position: fixed;
+    margin-left: 190px;
+    
+}
+
+
+/* Authentication links styling */
+#auth {
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: right;
+    margin-left: 190px;
+    margin-right: 5px;
+    padding-bottom: 5px;
+    padding-right: 3px;
+}
+
+/*edit other styles */
+.edit-others {
+    width: auto;
+    float: right;
+    text-align: right;
+}
+
+/*Mail Developer styles */
+.mail-dev {
+    width: 150px;
+    float: left;
+    max-height: 90%;
+    text-align: right;
+}
+
+/* Profile Picture Styling */
+.p-pics {
+    width: 122px;
+    height: 122px;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-left: auto;
+    float: right;
+    text-align: center;
+}
+
+
+
+/* Student Signature Styling */
+.sign {
+    position: absolute;
+    width: 102px;
+    height: 62px;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-left: auto;
+    right: 10px;
+    bottom: 20px;
+    float: right;
+    text-align: center;
+}
+
+
+
+/*Forms Error list formating/styling */
+.errorlist {
+    color: red;
+    background-color: rgb(180, 164, 164);
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+/* Emphasized elements styling */
+.emphasis {
+    font-weight: bold;
+}
+
+
+/* Notable paragraphs */
+.note {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Warnings styling */
+.warnings {
+    font-weight: bold;
+    background-color: #a0fd62;
+    color: hotpink;
+}
+
+
+
+/* Input fields styling */
+input {
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 25px;
+    background-color: rgb(234, 242, 247);
+    border-radius: 0.2em;
+}
+
+/* Select fields styling */
+select {
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 25px;
+    max-width: 95%;
+    background-color: rgb(234, 242, 247);
+    border-radius: 0.2em;
+    overflow: auto;
+}
+
+/* Input type of text styles */
+input[type=text], input[type=password] {
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 300px;
+    height: 25px;
+    background-color: rgb(234, 242, 247);
+}
+
+/* Submit and Reset buttons styling */
+input[type=submit], input[type=reset] {
+    font-size: 14pt;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 0.5em;
+    background-color: #dbe3e9ce;
+}
+
+/* Submit button hover effect styling */
+input[type=submit]:hover {
+    background-color: #1ecf27;
+    border-radius: 0.5em;
+}
+
+/* Reset button hover effect styling */
+input[type=reset]:hover {
+    background-color: rgb(248, 8, 8);
+    border-radius: 0.5em;
+}
+
+
+
+/* Results table styling */
+table {
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(98, 169, 177);
+    border-collapse: collapse;
+    border-radius: 5.0em;
+    margin-bottom: 20px;
+}
+
+/* Odd table rows styling */
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+/* Even table rows styling */
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+td {
+    border-bottom: 1px inset #008cff;
+    padding: 5px 10px;
+    margin: 2px 2px;
+}
+
+th {
+    text-align: center;
+    background-color: rgb(227, 247, 250);
+    color: #04145a;
+    font-weight: bolder;
+    border-left: 2px, solid #008cff;
+    border-bottom: 2px inset #008cff;
+    padding: 5px 10px;
+}
+
+
+
+/* Horizontal rule styles */
+hr {
+    border-width: 3px;
+    width: 100%;
+    border-color: #77b6e9;
+}
+
+

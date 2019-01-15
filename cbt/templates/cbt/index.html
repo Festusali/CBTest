@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block page_title %}Computer Based Test {% endblock %}
+
+{% block title %}Computer Based Test {% endblock %}
+{% block sub_title %}Please look around and find what you need to do and how we can help you achieve them. {% endblock %}
+
+{% block content %}
+<div> 
+    <p>Welcome to computer based test. Right here you find all solutions to problems of manual examiniations and how we can use computers to solve them effectively, efficiently, and effortlessly.</p>
+
+    <p>
+        Below are few ways we can help you achieve what you want:
+    <ul>
+        <li>
+            <div><span class="emphasis">Access Your Account</span></div>
+            <div><span class="detail">With Computer Based Test System, you can access your account at any time you want. In your portal, you can <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Student Details"> change your details</a> (password, email, etc.), edit <a href="{% url 'edit_profile' username=request.user.id t=2 %}" title="Edit Sponsor Details">Sponsor details</a>, <a href="{% url 'edit_profile' username=request.user.id t=3 %}" title="Edit Kin Details">Next of Kin details</a>, and or your <a href="{% url 'edit_profile' username=request.user.id t=4 %}" title="Edit Programme Details">Programme details</a>. </span>
+            <a href="{% url 'profile' username=request.user.id %}" title="View User Profile">View Account...</a> </div>
+        </li>
+
+        <li>
+            <div><span class="emphasis">Take an Examination</span></div>
+            <div><span class="detail">You can take advantage of our robust examination system in the most convenient way to showcase what you have learn't over the time in taking one or any number of examiniations that you have permissions to participate in. The system stays out of your way and ensures you get the most efficient experience thereby giving you the opportunity to choose as best as you can and likewise ensuring you score your best in any exam. </span>
+            <a href="{% url 'choose_question' %}" title="Take an Examination">Take an Examination...</a> </div>
+        </li>
+
+        <li>
+            <div><span class="emphasis">Check Your Result</span></div>
+            <div><span class="detail">It is no easy task for anybody having to wait for who knows when to be able to access your results after writing an examination. But with our robust Computer Based Test system, you don't have to wait any longer. You can simply login to your portal and view any of your results at any point in time as long as the you currently have permissions to execute such tasks.</span>
+                Below are few ways you can access your results;
+            <ol>
+                <li>
+                    <span class="sub-emphasis">Semester Result:</span> You view your result for each semester by selecting the level and the semester and your result will be generated for you instantly. <a href="{% url 'show_semester_result' %}" title="View Semester Result">Check semester Result...</a>
+                </li>
+                
+                <li>
+                    <span class="sub-emphasis">Course Result:</span> You view the result of each Course Examination you have taken by selecting the Level, Semester and the Course and your result will be generated for you instantly. <a href="{% url 'show_course_result' %}" title="View Course Result">Check Course Result...</a>
+                </li>
+
+                <li>
+                    <span class="sub-emphasis">Level/Session Result:</span> You will be able to view the over all result of a given Level or Session by selecting the desired level. This result will combine both the First Semester and Second Semester results to compute the final result for the given Level or Session. The CGPA is calculated with each semester having its own GPA. <a href="{% url 'choose_level_result' %}" title="View Level Result">Check Level Result...</a>
+                </li>
+            </ol>
+            </div>
+        </li>
+    </ul>
+    </p>
+    <div class="help">If you are still looking for something not listed here? The <a href="{% url 'faq' %}" title="Frequently Asked Questions">Frequently Asked Questions</a> page will most likely have answers to your questions.<br>
+    </div>
+</div>
+{% endblock %}

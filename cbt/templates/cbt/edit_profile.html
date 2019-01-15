@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block page_title %}Edit Student Data {% endblock %}
+
+{% block title %}Edit Student Data {% endblock %}
+{% block sub_title %}Edit {{ request.user }} Data {% endblock %}
+
+{% block content %}
+
+{% if perm is False %}
+<div class="details">
+    <p class="warning">You are not permited to edit another Student's Profile.</p>
+    However, You can, <a href="{% url 'edit_profile' username=request.user.id t=t %}" title="Edit Your Details">Edit your own profile</a>,  <a href="{% url 'profile' username=request.user.id %}" title="View Profile">View your Profile</a> or check other options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.
+</div>
+
+{% elif form %}
+<form action='' method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+{% if t == 1 %}
+<div class="details">
+    <p class="note">Please edit your personal details correctly.
+    <span class="edit-others">You can also Edit: <a href="{% url 'edit_profile' username=request.user.id t=2 %}" title="Edit Sponsor Details">Sponsor</a> | <a href="{% url 'edit_profile' username=request.user.id t=3 %}" title="Edit Kin Details">Kin</a> | <a href="{% url 'edit_profile' username=request.user.id t=4 %}" title="Edit Programme Details">Programme</a></span>
+    </p>
+</div>
+{% elif t == 2 %}
+<div class="details">
+    <p class="note">Please edit Sponsor's details correctly.
+    <span class="edit-others">You can also Edit: <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Personal Details">Student</a> | <a href="{% url 'edit_profile' username=request.user.id t=3 %}" title="Edit Kin Details">Kin</a> | <a href="{% url 'edit_profile' username=request.user.id t=4 %}" title="Edit Programme Details">Programme</a></span>
+    </p>
+</div>
+{% elif t == 3 %}
+<div class="details">
+    <p class="note">Please edit Next of Kin's details correctly.
+    <span class="edit-others">You can also Edit: <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Personal Details">Student</a> | <a href="{% url 'edit_profile' username=request.user.id t=2 %}" title="Edit Sponsor Details">Sponsor</a> | <a href="{% url 'edit_profile' username=request.user.id t=4 %}" title="Edit Programme Details">Programme</a></span>
+    </p>
+</div>
+{% elif t == 4 %}
+<div class="details">
+    <p class="note">Please edit Programme details correctly.
+    <span class="edit-others">You can also Edit: <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Personal Details">Student</a> | <a href="{% url 'edit_profile' username=request.user.id t=2 %}" title="Edit Sponsor Details">Sponsor</a> | <a href="{% url 'edit_profile' username=request.user.id t=3 %}" title="Edit Kin Details">Kin</a> </span>
+    </p>
+</div>
+{% endif %}
+
+<table>
+    {% if form.non_field_errors %}
+        <tr><td>{{ form.non_field_errors }}</td></tr>
+    {% endif %}
+    {% for field in form.visible_fields %}
+    <div class="fieldWrapper">
+        {% if field.errors %}
+        <tr><td>{{ field.errors }}</td></tr>
+        {% endif %}
+        <tr> <td>{{ field.label_tag }}</td> <td>{{ field }}</td> </tr>
+        {% if field.help_text %}
+            <tr><td></td><td>{{ field.help_text|safe }}</td> </tr>
+        {% endif %}
+    </div>
+    {% endfor %}
+</table>
+
+<input type=submit value='Update'> or <input type=reset value='Reset'>
+</form>
+
+{% endif %}
+
+{% endblock %}

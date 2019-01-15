@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}403 | Permission Denied{% endblock %}
+
+{% block title %}Permission Denied{% endblock %}
+{% block sub_title %}You Are Not Permitted To Continue With This Action{% endblock %}
+
+{% block content %}
+
+<div class="details">
+        <p>You can't continue because you were denied permission. Please only request for things which you were granted access.</p><br>
+    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
+</div>
+
+{% endblock %}

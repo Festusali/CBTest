@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>You're logged out.<br>
+
+<a href="{% url 'login' %}" title="Login">Login Again</a> or head over to <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a> as a guest.<br> You can likewise <a href="{% url 'register' %}" title="Register new account"> Create New Account</a>
+
+{% endblock %}

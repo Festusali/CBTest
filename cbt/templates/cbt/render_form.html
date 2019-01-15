@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block expand_form %}
+<table>
+    {% if form.non_field_errors %}
+        <tr><td>{{ form.non_field_errors }}</td></tr>
+    {% endif %}
+    {% for field in form.visible_fields %}
+        <div class="fieldWrapper">
+            {% if field.errors %}
+                <tr><td>{{ field.errors }}</td></tr>
+            {% endif %}
+            <tr> <td>{{ field.label_tag }}</td> <td>{{ field }}</td> </tr>
+            {% if field.help_text %}
+                <tr><td></td><td>{{ field.help_text|safe }}</td> </tr>
+            {% endif %}
+        </div>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}400 | Suspecious Request{% endblock %}
+
+{% block title %}Suspecious Request{% endblock %}
+{% block sub_title %}Your Request Looks Suspecious And You Can Not Continue{% endblock %}
+
+{% block content %}
+
+<div class="details">
+        <p>We can't verify that your request is genuine.<br>Please re-evalute what you want to do before trying again.</p><br>
+    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
+</div>
+
+{% endblock %}

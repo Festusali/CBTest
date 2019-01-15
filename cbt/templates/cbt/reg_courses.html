@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block page_title %} Registered Courses {% endblock %}
+
+{% block title %}Registered Courses {% endblock %}
+{% block sub_title %}Break Down of Registered Courses For {{ level }} {{ semester }} {% endblock %}
+
+
+{% block content %}
+<div class="details">
+    <p class="note">Here is the break down of all courses you registered for <span class="emphasis">{{ level }} {{ semester }}</span>.</p>
+    <div class="warning">If you notice any error(s), please quickly report to <span class="emphasis">System Admin</span> as soon as possible.</div>
+</div>
+
+{% if courses %}
+<div id="courses" class='courses'>
+<table>
+    <h3> Registered Courses</h3>
+    <tr> <th>Course Title</th> <th>Course Code</th> <th>Course Unit</th> </tr>
+    <tbody>
+    {% for c in courses %}
+        <tr> <td>{{ c.course.title }}</td> <td>{{ c.course.code }}</td> <td>{{ c.course.unit }}</td> </tr> 
+    {% endfor %}
+    </tbody>
+    <tfoot>
+    <tr> <th colspan="2">Total Courses</th> <th>Total Units</th> </tr>
+    <tr> <td colspan="2">{{ courses|length }}</td> <td>{{ total_units }}</td> </tr>
+    </tfoot>
+</table>
+</div>
+
+{% else %}
+<p class="note">No Registered Courses Found.</p>
+{% endif %}
+<div class="details">
+    You can also check other: <span class="emphasis"><a href="{% url 'registered_course' username=request.user.id %}" title="Registered Courses">Registered Courses</a></span> or maybe go back to the <span class="emphasis"><a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></span>.
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block page_title %} Take Examination {% endblock %}
+
+{% block title %}Take Examination {% endblock %}
+{% block sub_title %}Please Answer Correctly the Questions {% endblock %}
+
+{% block content %}
+<div class="details">
+    <p class="note">Please ensure you choose your answers <span class="emphasis">correctly</span> as any wrong choice can not be <span class="emphasis">reversed</span> after <span class="emphasis">Submission</span>.</p>
+</div>
+<div id="answers" class='answers'>
+<form action='' method="POST">
+{% csrf_token %}
+    {{ formset.management_form }}    
+    <ol>
+    {% for form, q in f_q %}
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+        <p><input type="hidden" name="form-{{ forloop.counter0 }}-id" id="id_form-{{ forloop.counter0 }}-id" />
+        <li>
+        <div class="details">{{ q.detail }}</div>
+        <input type="hidden" name="form-{{ forloop.counter0 }}-question" id="id_form-{{ forloop.counter0 }}-question" value="{{ q.id }}"><br>
+        
+        <input type="hidden" name="form-{{ forloop.counter0 }}-answered_by" min="0" id="id_form-{{ forloop.counter0 }}-answered_by" value="{{ request.user.id }}" />
+        
+        <input type="hidden" name="form-{{ forloop.counter0 }}-course" min="0" id="id_form-{{ forloop.counter0 }}-course" value="{{ q.course.id }}" />
+        
+        <input type="hidden" name="form-{{ forloop.counter0 }}-semester" min="0" id="id_form-{{ forloop.counter0 }}-semester" value="{{ semester }}" />
+        
+        <input type="hidden" name="form-{{ forloop.counter0 }}-level" min="0" id="id_form-{{ forloop.counter0 }}-level" value="{{ q.level }}" />
+        
+        <input type="radio" name="form-{{ forloop.counter0 }}-user_answer" id="id_form-{{ forloop.counter0 }}-user_answer" value="1">{{ q.option1 }} <br>
+        
+        <input type="radio" name="form-{{ forloop.counter0 }}-user_answer" id="id_form-{{ forloop.counter0 }}-user_answer" value="2">{{ q.option2 }} <br>
+        
+        <input type="radio" name="form-{{ forloop.counter0 }}-user_answer" id="id_form-{{ forloop.counter0 }}-user_answer" value="3">{{ q.option3 }} <br>
+        
+        <input type="radio" name="form-{{ forloop.counter0 }}-user_answer" id="id_form-{{ forloop.counter0 }}-user_answer" value="4">{{ q.option4 }} <br>
+        
+        <input type="radio" name="form-{{ forloop.counter0 }}-user_answer" id="id_form-{{ forloop.counter0 }}-user_answer" value="5">{{ q.option5 }} <br>
+        
+        </li></p>
+    {% endfor %} </ol>
+<div class="details">
+    <p class="note">Please make sure you have <span class="emphasis">reviewed</span> all your <span class="emphasis">answers</span> before <span class="emphasis">submitting</span>.</p>
+    <p class="warning">You can click the <span class="emphasis">Reset Answers</span> button to start afresh if you think you have made many mistakes already.</p>
+</div>
+<input type=submit value='Submit Answers'> or <input type=reset value='Reset Answers'> 
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}404 | Content not Found{% endblock %}
+
+{% block title %}Content Not Nound{% endblock %}
+{% block sub_title %}Requested Content Not Found{% endblock %}
+
+{% block content %}
+
+<div class="details">
+    <p class="note"><span class="emphasis">{{ exception }}, </span>the requested content at <span class="emphasis">{{ request_path }} </span>could not be found.</p>
+    This error mosty occur when typing long website address by hand. Please try and verify that the address is correctly spelt.<br>
+    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
+</div>
+
+{% endblock %}

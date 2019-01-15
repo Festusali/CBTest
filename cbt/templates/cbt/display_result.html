@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block page_title %}Student's Result {% endblock %}
+
+{% block title %}Result {% endblock %}
+{% block sub_title %} Student Result {% endblock %}
+
+{% block content %}
+
+{% if perm is False %}
+<div class="details">
+    <p class="warning">You don't have permissions to compile examination results.</p>
+    If you think this is an error, please contact the system administrator for further help.<br>
+    However, You can check other options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.<br> Or maybe, take a step 
+    <input type="button" value="<--Back" class="back-button" onClick=history.back()>
+</div>
+
+
+{% elif c_result %}
+<div class="details">
+    <p class="note">
+    Break down of <span class="emphasis">{{ result.course }}</span> on <span class="emphasis">{{ result.get_level_display }}</span>, <span class="emphasis">{{ result.get_semester_display }}</span>.
+    </p>
+</div>
+<table>
+    <tr> <td><b>NAME</b></td> <td><b>VALUE</b></td> </tr>
+    <tbody>
+        <tr>
+            <td>Student</td> <td>{{ result.user }}</td>
+        </tr>
+        <tr>
+            <td>Course</td> <td>{{ result.course }}</td>
+        </tr>
+        <tr>
+            <td>Level</td> <td>{{ result.level }}</td>
+        </tr>
+        <tr>
+            <td>Semester</td> <td>{{ result.get_semester_display }}</td>
+        </tr>
+        <tr>
+            <td>Total Score</td> <td>{{ result.score }}</td>
+        </tr>
+        <tr>
+            <td>Grade</td> <td>{{ result.grade }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="details">
+    You can also check your: <span class="emphasis"><a href="{% url 'show_semester_result' %}" title="Semester Result">Semester Result</a> | <a href="{% url 'choose_level_result' %}" title="Level/Session Result">Level/Session Result</a> </span>
+</div>
+
+{% elif s_result %}
+<div class="details">
+    <p class="note">
+    Break down of <span class="emphasis">{{ level }} {{ semester }}</span> Result.
+    </p>
+</div>
+<table>
+    <tbody>
+        <tr> <td>Full Name:</td> <td>{{ user_detail.user.get_full_name }} {{ user_detail.middle_name }}</td> </tr>
+        <tr> <td>Level</td> <td>{{ level }}</td> </tr>
+        <tr> <td>Semester</td> <td>{{ semester }}</td> </tr>
+    </tbody>
+</table>
+{% if courses %}
+    <table>
+        <p> Compiled Courses and Results</p>
+        <tr> <td>Course Code</td> <td>Course Title</td> <td>Course Unit</td> <td>Total Score</td> <td>Grade</td> </tr>
+        <tbody>
+        {% for c in courses %}
+            <tr> <td>{{ c.course.code }}</td> <td>{{ c.course.title }}</td> <td>{{ c.course.unit }}</td> <td>{{ c.score }}</td> <td>{{ c.grade }}</td> </tr> 
+        {% endfor %}
+        </tbody>
+    </table>
+    <table><tr> <td>Total Courses</td> <td>Total Units</td> <td>Total Score</td> <td>GPA</td> </tr>
+        <tr> <td>{{ result.total_courses }}</td> <td>{{ result.total_units }}</td> <td>{{ result.total_score }}</td> <td>{{ result.gpa }}</td> </tr>
+    </table>
+
+{% else %}
+    <p class="note">No Semester Results Found.</p>
+{% endif %}
+    <div class="details">
+        You can also check your: <span class="emphasis"><a href="{% url 'show_course_result' %}" title="Course Result">Course Result</a> | <a href="{% url 'choose_level_result' %}" title="Level/Session Result">Level/Session Result</a> </span>
+    </div>
+    
+
+{% elif compile %}
+{% if results %}
+<div class="details">
+    <p class="note">
+    Break down of Students' Compiled Results for <span class="emphasis">{{ level }} {{ semester }}</span>.
+    </p>
+</div>
+<table>
+    <tr> <td>Student</td> <td>Total Courses</td> <td>Total Score</td> <td>Total Units</td> <td>GPA</td> </tr>
+    <tbody>
+        {% for r in results %}
+            <tr> <td>{{ r.user }}</td> <td>{{ r.total_courses }}</td> <td>{{ r.total_score }}</td> <td>{{ r.total_units }}</td> <td>{{ r.gpa }}</td> </tr> 
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p class="note">No Compiled Results Found.</p>
+
+{% endif %}
+
+{% elif l_result %}
+{% if results %}
+<div class="details">
+    <p class="note">
+    Break down of Student's <span class="emphasis">{{ level }}</span> Result.
+    </p>
+</div>
+<table>
+    <tbody>
+        <tr> <td>Full Name:</td> <td>{{ user_detail.user.get_full_name }} {{ user_detail.middle_name }} {{ user_detail.user.username }}</td> </tr>
+        <tr> <td>Level</td> <td>{{ level }}</td> </tr>
+    </tbody>
+</table>
+<table>
+    <p>Student's {{ level }} Results. </p>
+    <thead>
+    <tr> <th colspan="4">First Semester</th> <th colspan="4">Second Semester</th> </tr>
+    <tr>
+        <td>Course Code</td> <td>Score</td> <td>Unit</td> <td>Grade</td>
+        <td>Course Code</td> <td>Score</td> <td>Unit</td> <td>Grade</td>
+    </tr>
+    </thead>
+    <tbody>
+        {% for r1, r2 in results %}
+            <tr>
+                <td>{{ r1.course.code }}</td> <td>{{ r1.score }}</td> <td>{{ r1.course.unit }}</td> <td>{{ r1.grade }}</td>
+                <td>{{ r2.course.code }}</td> <td>{{ r2.score }}</td> <td>{{ r2.course.unit }}</td> <td>{{ r2.grade }}</td>
+            </tr> 
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    Summary<br>
+    <table>
+        <tr><th>Semester</th> <th>Total Courses</th> <th>Total Score</th> <th>Total Units</th> <th>GPA</th> </tr>
+        <tbody>
+            <tr>
+                <td>First Semester </td><td>{{ result1.total_courses }}</td> <td>{{ result1.total_score }}</td> <td>{{ result1.total_units }}</td> <td>{{ result1.gpa }}</td>
+            </tr>
+            <tr>
+                <td>Second Semester </td><td>{{ result2.total_courses }}</td> <td>{{ result2.total_score }}</td> <td>{{ result2.total_units }}</td> <td>{{ result2.gpa }}</td>
+            </tr>
+            <tr>
+                <td>Cummulative Grade Point Average</td><td></td> <td></td> <td></td> <td>{{ cgpa|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+</p>
+{% else %}
+    <p class="note">No Level/Session Results Found.</p>
+
+{% endif %}
+    <div class="details">
+        You can also check your: <span class="emphasis"><a href="{% url 'show_semester_result' %}" title="Semester Result">Semester Result</a> | <a href="{% url 'show_course_result' %}" title="Course Result">Course Result</a> </span>
+    </div>
+    
+
+{% else %}
+    <div class="details">
+        <p class="note"> No results to display.</p>
+        You can check your: <span class="emphasis"><a href="{% url 'show_semester_result' %}" title="Semester Result">Semester Result</a> | <a href="{% url 'show_course_result' %}" title="Course Result">Course Result</a> | <a href="{% url 'choose_level_result' %}" title="Level/Session Result">Level/Session Result</a> </span>
+        For the moment, please take time to explore other wealth of options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.
+    </div>
+
+{% endif %}
+
+{% endblock %}

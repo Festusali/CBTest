@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Help {% endblock %}
+
+{% block title %}Frequently Asked Questions{% endblock %}
+{% block sub_title %}Here are most commonly asked questions by those who are new to Computer Based Test platform{% endblock %}
+
+
+{% block content %}
+<div id="details" class="details">
+    You can find help here on how to use <span class="emphasis">Computer Based Test</span> based on questions that other users have asked before.
+    <div id="faq">
+        <ul>
+        <li>
+            <p class="profile">"Profile" and other Sub Functions.
+            <ul>
+            <li><a href="#profile">How can I "View My Profile"?</a></li>
+            <li><a href="#edit_profile">How can I "Edit My Profile"?</a></li>
+            </ul>
+            </p>
+        </li>
+        <li>
+            <p class="examination">How to take an "Examination" and other related activities.
+            <ul>
+            <li><a href="#examination">How can I "Participate in an Exam"?</a></li>
+            </ul>
+            </p>
+        </li>
+        <li>
+            <p class="result">How to "Check Results" and other related activities.
+            <ul>
+            <li><a href="#course-result">How can I check my "Course Result"?</a></li>
+            <li><a href="#semester-result">How can I check my "Semester Result"?</a></li>
+            <li><a href="#level-result">How can I check my "Level/Session Result"?</a></li>
+            </ul>
+            </p>
+        </li>
+        <li>
+            <p class="authentication">How to "Login", "Log Out", "Register", and other related activities.
+            <ul>
+            <li><a href="#create-account">How can I "Create new Account"?</a></li>
+            <li><a href="#login">How can I "Log In" to my Account?</a></li>
+            <li><a href="#logout">How can I "Log Out" of my Account?</a></li>
+            <li><a href="#change-password">How can I "Change my Account Password"?</a></li>
+            </ul>
+            </p>
+        </li>
+        </ul>
+    </div>
+
+
+    <div class="details">
+        <ul>
+        <li><div class="profile">
+        There are many tasks you can accomplish in your profile page. Below are some of them;
+        <p id="profile" class="profile">To view your profile:
+        <ol>
+            <li>
+                Hover (Bring your cursor to) the "Profile" link on the Navigation Bar located to the top-left corner of the page.
+            </li>
+            <li>
+                Then, click on "View Profile" link in the Sub link that appears.
+            </li>
+            <li>
+                You will instantly be taken to your "Profile" page.
+            </li>
+        </ol>
+        </p>
+        
+        <p id="edit_profile">To edit your Profile:
+        <ol>
+            <li>
+                Hover (Bring your cursor to) the "Profile" link on the Navigation Bar located to the top-left corner of the page.
+            </li>
+            <li>
+                Then click on "Edit Profile" link in the sub link that appears.
+            </li>
+            <li>
+                You will instantly be taken to "Edit Profile" page.
+            </li>
+        </ol>
+        Apart from viewing and editing your basic profile details, you can likewise edit your <a href="{% url 'edit_profile' username=request.user.id t=2 %}" title="Edit Sponsor Details">Sponsor</a>, <a href="{% url 'edit_profile' username=request.user.id t=3 %}" title="Edit Next of Kin Details">Next of Kin</a> and <a href="{% url 'edit_profile' username=request.user.id t=4 %}" title="Edit Programme Details">Programme</a> details.<br>
+        At each editing page, you can navigate to another page to continue editing those details.
+        </p>
+        </div></li>
+
+        <li><div class="examination">
+            Under the examination tab, you have a wealth of options to choose from. Below we present you some of the things you can get done.
+        <p id="examination">
+            To take an Examination:
+        <ol>
+            <li>
+                Bring your cursor to the navigation bar located to the top-left corner of the page. Then click on "Examination".
+            </li>
+            <li>
+                You will be taken to "Select Examination" page where you will be able to select the "Course, Level and Semester" of the examination you want to take. When done with selecting your choice, click on "Continue" button to proceed to main examination page.
+            </li>
+            <li>
+                In the main Examination page, you have to make your choices correctly and as fast as possible in order to beat against time and make the best score ever. When you're comfortable with your choices, click on <span class="emphasis">"Submit Answers"</span> button to complete the examination process. Please Note: Your failure to submit your answers by clicking the <span class="emphasis">"Submit Answers"</span> button means you never took part in the examination and such opportunity may not be availed to you by the school or administrator.
+
+            </li>
+        </ol>
+        <p><span class="emphasis">Caution:</span> Please take caution in an attempt to use the <span class="emphasis">"Reset Answers"</span> button on the main examination page. The button wasn't there for fun but to get a very crucial job done. You should only use the button if and only if you have made many mistakes in your previous answers and wish to start everything about the current progressing examination afresh. On clicking on that button, every choices you have made on the page so far will be reset to its default allowing you to start every choices afresh. <br>If you have only made few mistakes, it is better and recommended to go back to those individual questions or answers to correct them rather than clicking the Reset button. Clicking the button towards the dying minute of the exam may be particularly devastating as you may not have the opportunityto make those choices again before the time runs out.
+        <br>To be fore warned, they say is to be fore armed.</p>
+        </p>
+        </div></li>
+
+        <li><div class="result">
+        There are many ways you can access your results which includes: Individual Courses results, Semester and or Level/Session Results. Whichever one you want to access, we will teach you how below;
+        <p id="course-result" class="course-result">To view Course Results:
+        <ol>
+            <li>
+                Hover (Bring your cursor to) the "Check Results" link on the 'Navigation Bar' located to the top-left corner of the page.
+            </li>
+            <li>
+                Then, click on "Course Result" link in the Sub links that appear.
+            </li>
+            <li>
+                You will be taken to choose "Choose Course Result" page.
+            </li>
+            <li>
+                Select the Course, Level and Semester of the result you want to access. Then click the "Continue" button.
+            </li>
+            <li>
+                The next page that loads on clicking the "Continue" button presents your Course Result based on your selections. 
+            </li>
+            You can then print the result for your own records.
+        </ol>
+        </p>
+        
+        <p id="semester-result" class="semester-result">To view Semester Results:
+        <ol>
+            <li>
+                Hover (Bring your cursor to) the "Check Results" link on the 'Navigation Bar' located to the top-left corner of the page.
+            </li>
+            <li>
+                Then, click on "Semester Result" link in the Sub links that appear.
+            </li>
+            <li>
+                You will be taken to choose "Choose Semester Result" page.
+            </li>
+            <li>
+                Select the Semester and Level of the result you want to access. Then click the "Continue" button.
+            </li>
+            <li>
+                The next page that loads on clicking the "Continue" button presents your Semester Result based on your selections. 
+            </li>
+            You can then print the result for your own records.
+        </ol>
+        </p>
+        
+        <p id="level-result" class="level-result">To view Level/Session Results:
+        <ol>
+            <li>
+                Hover (Bring your cursor to) the "Check Results" link on the 'Navigation Bar' located to the top-left corner of the page.
+            </li>
+            <li>
+                Then, click on "Level Result" link in the Sub links that appear.
+            </li>
+            <li>
+                You will be taken to choose "Choose Level/Session Result" page.
+            </li>
+            <li>
+                Select the Level of the result you want to access. Then click the "Continue" button.
+            </li>
+            <li>
+                The next page that loads on clicking the "Continue" button presents your Level Result based on your selection. 
+            </li>
+            You can then print the result for your own records.
+        </ol>
+        <p><span class="emphasis">Note:</span> You may find out that your result is not available by the time you checked. In such cases, please try and verify that the result has been marked byt the approprate personell.<br>While marking of results can take less than a second, it is entirely the responsiblity of the person in charge to initiate such actions before the results will become available for students.<br>
+        Another reason could be that you never participated in the examination. For cases as this, please contact the system administratorfor further help and possible verification.</p>
+        </p>
+        </div></li>
+
+        <li><div class="authentication">
+        Computer Based Test Authentication is the main component that gives the priviledge to start using this wonderful system and without which you are only limited to accessing the Home Page and the Create Account Page. With that in mind, we have made it so easy to Register an Account, Log In and Out of an Account and many other necessary actions that are required often and always. Below are some interesting things to take a look at;
+        
+        <p id="create-account" class="create-account">To Create New Account:
+        <ol>
+            <li>
+                To Create New Account, scroll to the top of the page and you will see the basic authentication links <span class="emphasis">"Login(Logout) | Register"</span>. Click on <span class="emphasis">Register.</span>
+            </li>
+            <li>
+                On the page that opens, Enter the required fields and click on <span class="emphasis">Create User</span> button.
+            </li>
+            <li>
+                Your Account will be created immediately and you will be taken to Account Login Page. You should login to start enjoying the benefits of Computer Based Test as instantly.
+            </li>
+        </ol>
+        </p>
+
+        <p id="login" class="login">To Login to an existing account:
+        <ol>
+            <li>
+                To Login to an Account, scroll to the top of the page and you will see the basic authentication links <span class="emphasis">"Login(Logout) | Register"</span>. Click on <span class="emphasis">Login.</span>
+            </li>
+            <li>
+                On the page that opens, Enter your Username and Password you used during Registration and click on <span class="emphasis">Login</span> button.
+            </li>
+            <li>
+                If your Username and Password are correct, you will be taken to The Home Page where you can start exploring endless services provide by Computer Based Test.
+            </li>
+
+        </ol>
+        </p>
+
+        <p id="logout" class="logout">To Logout of an account:
+        <ol>
+            There are few genuine reasons you may choose to Logout of an account which might include:<br>
+            Using a Shared Computer or other devices,<br>
+            Browsing through a Public Computer or Cyber Cafe,<br>
+            Sale or transfer of a device and a host of other reasons.<br>
+            If any of the above happens to be the case, simply follow the steps below.
+            <li>
+                Scroll to the top of the page and you will see the basic authentication links <span class="emphasis">"Login(Logout) | Register"</span>. Click on <span class="emphasis">Logout.</span> Note: the log out link can only show if you are logged in already. If you are seeing Login instead of Logout, it means you are not logged into the system.
+            </li>
+            <li>
+                As soon as you click on the Logout link, you will be Logged out of your account instantly and be taken to the Home Page.
+            </li>
+            <li>
+                However, if you wish to log in again, simply follow the steps above but this time, click on Login and follow the steps as outlined in <a href="#login" title="See Login Procedure">Login Section</a>.
+            </li>
+        </ol>
+        </p>
+        
+        <p id="change-password" class="change-password">To Change your Account Password:
+        <ol>
+            By following the steps outlined below, you can easily change you account password.
+            <li>
+                Scroll to the top of the page and you will see the basic authentication links <span class="emphasis">"Login(Logout) | Register"</span>. Click on <span class="emphasis">Login.</span>
+            </li>
+            <li>
+                Inside the Login Page, locate the <span class="emphasis">Lost Password?</span> link beneath the Login Form and click on it.
+            </li>
+            <li>
+                On the <span class="emphasis">Change Password</span> page, Enter your email address and click on <span class="emphasis">Reset Password</span> button a link allowing you to Change you password will be emailed to you.
+            </li>
+            <li>
+                Open your email inbox or maybe Junk/Spam folder (if mail not in inbox) and follow the instructions as contained in the email to complete the password reset process.
+            </li>
+        </ol>
+        </p>
+        
+        </div>
+        </li>
+        
+        </ul>
+    </div>
+    We greatly appreciate your patience in seeking help thus far. It is in view of your precious time that we wish to thank you greatly for sticking around. We promise to make your stay a memorable one.<br>
+    Thank you.
+</div>
+
+{% endblock %}

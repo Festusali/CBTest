@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block css %}<link rel="stylesheet" href="{% static 'styles/style.css' %}" />{% endblock css %}
+    {% block favicon %} <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon"> {% endblock %}
+    <title>{% block page_title %}Computer Based Test{% endblock %}</title>
+</head>
+
+<body>
+    <div id="menu">
+        {% block menu %}
+        <ul class="menu">
+            <li class="active"><a href="{% url 'index' %}", title="Computer Based Test">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'profile' username=request.user.id %}" title="View Profile">View Profile</a>
+                    <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Student Personal Details">Edit Profile</a>
+                </div>
+            </li>
+            {% if request.user.is_superuser or request.user.is_staff %}
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Tokens</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'gen_tokens' username=0 %}" title="Generate Tokens">Generate Tokens</a>
+                        <a href="{% url 'show_tokens' username=0 %}" title="Display Generated Tokens">Show Tokens</a>
+                        <a href="{% url 'flush_token' username=0 %}" title="Flush Selected Tokens">Flush Tokens</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'new_question' %}" title="Add New Questions">Add Questions</a></li>
+                <li><a href="{% url 'mark_answer' %}" title="Mark Answers">Mark Answers</a></li>
+                <li><a href="{% url 'compile_result' %}" title="Compile Results">Compile Results</a></li>
+            {% endif %}
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Courses</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'register_course' username=user.id %}" title="Register New Courses">Register Courses</a>
+                    <a href="{% url 'registered_course' username=user.id %}" title="Display Registered Courses">Registered Courses</a>
+                </div>
+            </li>
+            <li><a href="{% url 'choose_question' %}" title="Take an Exam">Examination</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Check Results</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'show_course_result' %}" title="View Course Result">Course Result</a>
+                    <a href="{% url 'show_semester_result' %}" title="View Semester Result">Semester Result</a>
+                    <a href="{% url 'choose_level_result' %}" title="View Level/Session Result">Level Result</a>
+                </div>
+            </li>
+            <li><a href="{% url 'faq' %}" title="Frequently Asked Questions">Help</a></li>
+        </ul>
+        {% endblock menu %}
+    </div>
+
+    <div id="logo" class="logo">
+        <a href="{% url 'index' %}" title="Logo"><img src="{% static 'images/Logo 3.1.jpg' %}" alt="CBTest Logo" width="40px" height="35px"></a>
+    </div>
+
+    <div id="auth" class="auth">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" title="Log Out">Logout</a> |
+            <a href="{% url 'register' %}" title="Register Account">Register</a>
+        {% else %}
+        <a href="{% url 'login' %}" title="Login">Login</a> |
+        <a href="{% url 'register' %}" title="Register Account">Register</a>
+        {% endif %}
+    </div>
+
+    <div id="content" class"content">
+        <h1 class="heading">{% block title %}{% endblock %}</h1>
+        <h3 class="sub-heading">{% block sub_title %}{% endblock %}</h3>        
+        
+        {% block content %}Page Content {% endblock content %}
+    </div>
+
+    <div id="mail-dev" class="mail-dev">
+        Developed and Designed by <a href="maito:festusali@gmail.com">Ali Okechukwu Festus</a>
+    </div>
+
+
+    <did id="pad-foot" class="pad-foot">
+        .<br>
+    </did>
+    
+    <div id="foot" class="foot">
+        {% block foot %}Copyrite © 2018 CBTest®<br> All rights reserved. No content of this site shall be lifted without proper reference and consent of "CO Computers®" or it's management. {% endblock foot %}
+    </div>
+</body>
+</html>

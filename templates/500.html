@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}500 | Server Error{% endblock %}
+
+{% block title %}Server Downtime{% endblock %}
+{% block sub_title %}The Server Is Currently Down{% endblock %}
+
+{% block content %}
+
+<div class="details">
+    <p class="note">Our server is currently down. Please try again later.<br>
+        The problem is from our end and we are working on fixing it right away.
+    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
+</div>
+
+{% endblock %}

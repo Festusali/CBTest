@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block page_title %} Register Courses {% endblock %}
+
+{% block title %}Register Courses {% endblock %}
+{% block sub_title %}Please Register Your Courses For {{ level }} {{ semester }} {% endblock %}
+
+{% block content %}
+<div class="details">
+    <p class="note">Please ensure you choose your courses <span class="emphasis">correctly</span> as any wrong choice may not be easily <span class="emphasis">reversed</span> after <span class="emphasis">Registration</span>.</p>
+</div>
+<div id="courses" class='courses'>
+<form action='' method="POST">
+{% csrf_token %}
+    
+    {{ formset.management_form }}    
+    <table>
+        <tr>
+            <th>Select</th> <th>Course Title</th> <th>Course Code</th> <th>Course Unit</th>
+        </tr>
+    {% for form, c in f_c %}
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+    
+        <div><input type="hidden" name="form-{{ forloop.counter0 }}-user" id="id_form-{{ forloop.counter0 }}-user" value="{{ request.user.id }}"></div>
+        
+        <div><input type="hidden" name="form-{{ forloop.counter0 }}-level" id="id_form-{{ forloop.counter0 }}-level" value="{{ c.level }}"> </div>
+
+        <div><input type="hidden" name="form-{{ forloop.counter0 }}-semester" id="id_form-{{ forloop.counter0 }}-semester" value="{{ c.semester }}"></div>
+
+        <tr>
+            <td><input type="checkbox" name="form-{{ forloop.counter0 }}-course" id="id_form-{{ forloop.counter0 }}-course" value="{{ c.id }}"> </td>
+            <td>{{ c.title }}</td>
+            <td>{{ c.code }}</td>
+            <td>{{ c.unit }}</td>
+        </tr>
+    
+    {% endfor %}
+    </table>
+<div class="details">
+    <p class="note">Please make sure you have <span class="emphasis">reviewed</span> all chosen <span class="emphasis">courses</span> before <span class="emphasis">registering</span>.</p>
+    <p class="warning">You can click the <span class="emphasis">Reset</span> button to start afresh if you think you have made many mistakes already.</p>
+</div>
+<input type=submit value='Register Courses'> or <input type=reset value='Reset'> 
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<a href="{% url 'register' %}" title="Register new account">New Account </a><br>
+
+{% if form.errors %}
+    <p class="errorlist">Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<table>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+    <div><tr>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </tr></div>
+    <div><tr>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+    </tr></div>
+    
+    <div><tr><td>
+      <input type="submit" value="login" /></td>
+      <td><input type="hidden" name="next" value="{{ next }}" /></td>
+    </tr></div>
+</form>
+</table>
+
+
+<p><a href="{% url 'password_reset' %}">Lost Password?</a> Or <a href="{% url 'register' %}" title="Register new account">Create New Account.</a></p>
+
+<a href="{% url 'index' %}" title="Home Page">Continue without login</a>
+
+{% endblock %}

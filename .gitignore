@@ -1,0 +1,10 @@
+*.pyc
+*~
+__pycache__
+db.sqlite3
+/user_pictures
+/user_signatures
+/media
+/cb.code-workspace
+/.vscode
+.DS_Store

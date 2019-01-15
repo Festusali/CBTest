@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block page_title %}Add New Questions {% endblock %}
+
+
+{% block title %}Add New Questions. {% endblock %}
+{% block sub_title %}Please add new questions as per needed. {% endblock %}
+
+{% block content %}
+
+{% if perm is False %}
+<div class="details">
+    <p class="warning">You don't have permission to add new questions.</p>
+    If you think this is an error, please contact the system administrator for further help.<br>
+    However, You can check other options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.<br> Or maybe, take a step 
+    <input type="button" value="<--Back" class="back-button" onClick=history.back()>
+</div>
+
+
+{% elif can_add is True %}
+<div class="details"><p class="note">
+    Please not that you are about to add <span class="emphasis">{{ total }}</span> new questions into <span class="emphasis">{{ details.course }}</span>. You selected <span class="emphasis">{{ details.level }}</span> and <span class="emphasis">{{ details.semester }}</span>.<br> All fields therefore will be updated accordingly upon submission.
+</p>
+If you are in the wrong section, you can change the <a href="{% url 'new_question' %}" title="Add New Questions"><span class="emphasis">Course, Level, and or Semester</span></a> you want to add the questions. 
+</div>
+<div id="questions" class='questions'>
+<form action='' method="POST">
+{% csrf_token %}
+
+    {{ formset.management_form }}    
+    {% for form in formset %}
+    <table>
+        {% if form.non_field_errors %}
+            <tr><td>{{ form.non_field_errors }}</td></tr>
+        {% endif %}
+        {% for field in form.visible_fields %}
+            <div class="fieldWrapper">
+                {% if field.errors %}
+                <tr><td>{{ field.errors }}</td></tr>
+                {% endif %}
+                <tr> <td>{{ field.label_tag }}</td> <td>{{ field }}</td> </tr>
+                {% if field.help_text %}
+                <tr><td></td><td>{{ field.help_text|safe }}</td> </tr>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </table>
+
+    {% endfor %}
+<input type=submit value='Save Questions'> or <input type=reset value='Reset Questions'> 
+
+</form>
+<p>
+    If you wish not to continue, please take time to explore other wealth of options on the <a href="{% url 'index' %}" title="Computer Based Test">home page</a>
+</p>
+</div>
+
+
+{% else %}
+<div class="details">
+    <p class="note">Please you do not have the permission to add new question(s).<br>For further enquiries, please contact the System Administrator.</p>
+    For the moment, please take time to explore other wealth of options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.
+</div>
+{% endif %}
+
+{% endblock %}
