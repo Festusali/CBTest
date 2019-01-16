@@ -5,6 +5,8 @@ db.sqlite3
 /user_pictures
 /user_signatures
 /media
+/staticfiles
+/mediafiles
 /cb.code-workspace
 /.vscode
 .DS_Store

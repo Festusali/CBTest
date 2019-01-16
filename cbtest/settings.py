@@ -25,7 +25,7 @@ SECRET_KEY = '3ua5^4#ga^4y65-p80160%ggisb_-#f*s&i^@3@=xl_i$5_a=s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -119,16 +119,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
 ]
 
 # Media root and media url (User uploaded files like; images, vidoes, and documents, etc.)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 MEDIA_URL = '/media/'
-print(MEDIA_ROOT)
 
 
 # Login and Login Redirect Url.
