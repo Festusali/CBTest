@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 
-{% block page_title %}403 | Permission Denied{% endblock %}
-
-{% block title %}Permission Denied{% endblock %}
-{% block sub_title %}You Are Not Permitted To Continue With This Action{% endblock %}
+{% block page_title %}Permission Denied{% endblock %}
 
 {% block content %}
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1>
+                    <span class="heading">
+                        Permission Denied
+                    </span>
+                </h1>
+                {% endblock %}
+            </header>
+            <div>
+                You can't continue because you you lack necessary permission(s). Please only request for things which
+                you were granted access.<br><br>
 
-<div class="details">
-        <p>You can't continue because you were denied permission. Please only request for things which you were granted access.</p><br>
-    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
-</div>
-
+                With that made known, you can access the <a href="{% url 'index' %}" class="btn btn-success btn-sm" title="Computer Based Test">Home Page</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block page_title %}Student's Course Result{% endblock %}
+
+{% block content %}
+
+<header class="pb-5">
+    {% block title %}
+    <h1>
+        <span class="heading">Student's Course Result</span>
+    </h1>
+    {% endblock title %}
+</header>
+
+<div class="pb-2">
+    <div class="pb-3">
+        Break down of <strong>{{ result.user.full_name }}'s</strong> result for
+        <strong>{{ result.get_semester_display }} {{ result.get_level_display }}</strong>.
+    </div>
+
+    {% if result %}
+    <div class="table-responsive pb-2">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <td colspan="2">
+                        <h4>
+                            Result For: {{ result.course }}
+                        </h4>
+                    </td>
+                </tr>
+                <tr>
+                    <th>NAME</th>
+                    <th>VALUE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Student</td>
+                    <td>{{ result.user.full_name }}</td>
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td>{{ result.course }}</td>
+                </tr>
+                <tr>
+                    <td>Level</td>
+                    <td>{{ result.level }}</td>
+                </tr>
+                <tr>
+                    <td>Semester</td>
+                    <td>{{ result.get_semester_display }}</td>
+                </tr>
+                <tr>
+                    <td>Total Score</td>
+                    <td>{{ result.score }}</td>
+                </tr>
+                <tr>
+                    <td>Grade</td>
+                    <td>{{ result.grade }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix">
+        <a href="{% url 'index' %}" class="btn btn-info float-left">Home Page</a>
+        <button type="submit" class="btn btn-success float-right disabled">Print</button>
+    </div>
+    {% else %}
+    <div class="bg-error">No Semester Results Found.</div>
+    {% endif %}
+
+    <div class="pt-5">
+        That's the available records. You might also want to check
+        <a href="{% url 'show_semester_result' %}" class="btn btn-primary btn-sm" title="Semester Result">
+            Semester Result
+        </a> or
+        <a href="{% url 'choose_level_result' %}" class="btn btn-primary btn-sm" title="Level/Session Result">
+            Level/Session Result
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

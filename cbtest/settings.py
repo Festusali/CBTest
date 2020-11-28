@@ -10,10 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
+from pathlib import Path
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from django.contrib.messages import constants as messages
+from django.urls import reverse_lazy
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,25 +26,37 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3ua5^4#ga^4y65-p80160%ggisb_-#f*s&i^@3@=xl_i$5_a=s'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
+# Internal IP settings for debug toolbar
+INTERNAL_IPS = ['127.0.0.1', ]
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    'cbt',
+    'user',
+
+    'crispy_forms',
+    'debug_toolbar',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cbt',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,7 +71,7 @@ ROOT_URLCONF = 'cbtest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates",],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,7 +79,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',
             ],
         },
     },
@@ -72,13 +87,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'cbtest.wsgi.application'
 
 
+# The model used for authentication
+AUTH_USER_MODEL = 'user.UserModel'
+
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'old': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db1.sqlite3',
     }
 }
 
@@ -88,16 +111,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'NumericPasswordValidator',
     },
 ]
 
@@ -119,23 +146,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
-# Media root and media url (User uploaded files like; images, vidoes, and documents, etc.)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+# Media root and media url (User uploaded files like; images, vidoes, and
+# documents, etc.)
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
 MEDIA_URL = '/media/'
 
 
-# Login and Login Redirect Url.
-LOGIN_URL = "/u/login"
-LOGIN_REDIRECT_URL = "index"
-
-# Logout Redirect URL
-LOGOUT_REDIRECT_URL = "index"
+# Login and Login/Logout Redirect Url.
+LOGIN_URL = reverse_lazy("login")
+LOGIN_REDIRECT_URL = reverse_lazy("index")
+LOGOUT_REDIRECT_URL = reverse_lazy("index")
 
 
 # Append slash to urls where needed?
@@ -143,5 +167,19 @@ APPEND_SLASH = True
 
 
 # Email Backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+# Flash messages related settings
+MESSAGE_LEVEL = messages.DEBUG
+MESSAGE_TAGS = {
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.ERROR: 'alert-warning',
+    messages.WARNING: 'alert-danger',
+}
+
+
+# Crispy form related settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

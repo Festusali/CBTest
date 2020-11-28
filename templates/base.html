@@ -2,90 +2,281 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    {% block css %}<link rel="stylesheet" href="{% static 'styles/style.css' %}" />{% endblock css %}
-    {% block favicon %} <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon"> {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap4/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    {% endblock css %}
+    {% block description %}
+    <meta name="description" content="Free Online Computer Based Test System. Register, Learn, Take Exams and See Your Results.">
+    {% endblock description %}
+    {% block keyword %}
+    <meta name="keywords" content="Computer, Based, Test, Online, CBT, Results, Exams">
+    {% endblock keyword %}
+    {% block author %}
+    <meta name="author" content="Festus Ali">
+    {% endblock author %}
+    {% block favicon %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    {% endblock favicon %}
     <title>{% block page_title %}Computer Based Test{% endblock %}</title>
 </head>
 
 <body>
-    <div id="menu">
-        {% block menu %}
-        <ul class="menu">
-            <li class="active"><a href="{% url 'index' %}", title="Computer Based Test">Home</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Profile</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'profile' username=request.user.id %}" title="View Profile">View Profile</a>
-                    <a href="{% url 'edit_profile' username=request.user.id t=1 %}" title="Edit Student Personal Details">Edit Profile</a>
-                </div>
+    {% block nav_bar %}
+    <nav id="topNav" class="navbar navbar-dark sticky-top">
+        <a href="{% url 'index' %}" title="Home Page" class="navbar-brand">
+            <img src="{% static 'images/logo.jpg' %}" alt="CBTest Logo" id="logo" style="width: 40px;">
+        </a>
+
+        <!-- Navbar links -->
+        <ul class="nav justify-content-end">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                    href="{% url 'profile' pk=request.user.pk username=request.user.username %}">Profile</a>
             </li>
-            {% if request.user.is_superuser or request.user.is_staff %}
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Tokens</a>
-                    <div class="dropdown-content">
-                        <a href="{% url 'gen_tokens' username=0 %}" title="Generate Tokens">Generate Tokens</a>
-                        <a href="{% url 'show_tokens' username=0 %}" title="Display Generated Tokens">Show Tokens</a>
-                        <a href="{% url 'flush_token' username=0 %}" title="Flush Selected Tokens">Flush Tokens</a>
-                    </div>
-                </li>
-                <li><a href="{% url 'new_question' %}" title="Add New Questions">Add Questions</a></li>
-                <li><a href="{% url 'mark_answer' %}" title="Mark Answers">Mark Answers</a></li>
-                <li><a href="{% url 'compile_result' %}" title="Compile Results">Compile Results</a></li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{% url 'register' %}">Register</a>
+            </li>
             {% endif %}
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Courses</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'register_course' username=user.id %}" title="Register New Courses">Register Courses</a>
-                    <a href="{% url 'registered_course' username=user.id %}" title="Display Registered Courses">Registered Courses</a>
-                </div>
-            </li>
-            <li><a href="{% url 'choose_question' %}" title="Take an Exam">Examination</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Check Results</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'show_course_result' %}" title="View Course Result">Course Result</a>
-                    <a href="{% url 'show_semester_result' %}" title="View Semester Result">Semester Result</a>
-                    <a href="{% url 'choose_level_result' %}" title="View Level/Session Result">Level Result</a>
-                </div>
-            </li>
-            <li><a href="{% url 'faq' %}" title="Frequently Asked Questions">Help</a></li>
         </ul>
-        {% endblock menu %}
+    </nav>
+    {% endblock nav_bar %}
+
+    <div class="main-container">
+        <aside id="menu">
+            <div class="toggle-container hide-small text-right">
+                <span id="toggleSideBar" class="fa fa-close" title="Close Side Bar"></span>
+            </div>
+            <nav id="sideNav" class="navbar">
+                <ul class="navbar-nav">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Profile
+                        </a>
+                        <div id="profileLinks" class="dropdown-menu">
+                            <a class="dropdown-item"
+                                href="{% url 'profile' pk=request.user.pk username=request.user.username %}"
+                                title="View Profile">
+                                View Profile
+                            </a>
+                            <a class="dropdown-item"
+                                href="{% url 'edit_profile' pk=request.user.pk username=request.user.username %}"
+                                title="Edit Student Personal Details">
+                                Edit Profile
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light" href="{% url 'login' %}" title="Sign In">
+                            Sign In
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Tokens
+                        </a>
+                        <div id="tokenLinks" class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'gen_tokens' %}" title="Generate Tokens">
+                                Generate Tokens
+                            </a>
+                            <a class="dropdown-item" href="{% url 'show_tokens' %}" title="Display Generated Tokens">
+                                Show Tokens
+                            </a>
+                            <a class="dropdown-item" href="{% url 'flush_token' %}" title="Flush Selected Tokens">
+                                Flush Tokens
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'new_question' %}" title="Add New Questions">
+                            Add Questions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mark_script' %}" title="Mark Scripts">
+                            Mark Scripts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'compile_result' %}" title="Compile Results">
+                            Compile Results
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Courses
+                        </a>
+                        <div id="courseLinks" class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'register_course' %}" title="Register New Courses">
+                                Register Courses
+                            </a>
+                            <a class="dropdown-item" href="{% url 'registered_course' %}"
+                                title="Display Registered Courses">
+                                Registered Courses
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'choose_question' %}" title="Take an Exam">
+                            Examination
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Check Results
+                        </a>
+                        <div id="resultLinks" class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'show_course_result' %}" title="View Course Result">
+                                Course Result
+                            </a>
+                            <a class="dropdown-item" href="{% url 'show_semester_result' %}"
+                                title="View Semester Result">
+                                Semester Result
+                            </a>
+                            <a class="dropdown-item" href="{% url 'choose_level_result' %}"
+                                title="View Level/Session Result">
+                                Level Result
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'faq' %}" title="Frequently Asked Questions">
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main id="content" class="content">
+            <div class="pd-2">
+                {% block messages %}
+                {% if messages %}
+                <div id="flash_messages" class="w3-container">
+                    {% include '_partial/messages.html' %}
+                </div>
+                {% endif %}
+                {% endblock messages %}
+
+                {% block content %}
+                {% block title %}<h1 class="heading">Welcome To CBTest</h1>{% endblock %}
+                {% block sub_title %}<h3 class="sub-heading">Register Courses, Take Exams, See Your Results and
+                    More...</h3>
+                {% endblock %}
+                Page Content
+                {% endblock content %}
+            </div>
+        </main>
     </div>
 
-    <div id="logo" class="logo">
-        <a href="{% url 'index' %}" title="Logo"><img src="{% static 'images/Logo.jpg' %}" alt="CBTest Logo" width="40px" height="35px"></a>
-    </div>
 
-    <div id="auth" class="auth">
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" title="Log Out">Logout</a> |
-            <a href="{% url 'register' %}" title="Register Account">Register</a>
-        {% else %}
-        <a href="{% url 'login' %}" title="Login">Login</a> |
-        <a href="{% url 'register' %}" title="Register Account">Register</a>
-        {% endif %}
-    </div>
+    <div class="clearfix"></div>
+    <hr id="divider">
 
-    <div id="content" class="content">
-        <h1 class="heading">{% block title %}{% endblock %}</h1>
-        <h3 class="sub-heading">{% block sub_title %}{% endblock %}</h3>        
-        
-        {% block content %}Page Content {% endblock content %}
-    </div>
+    <footer id="footer" class="footer pb-5">
+        <div class="pd-lr-2">
+            {% block dev_info %}
+            <div id="mail-dev" class="mail-dev pb-5 border-bottom border-light">
+                <div id="developer" class="p-2 developer">
+                    <div class="border-light border-bottom font-weight-bold lead">About Developer</div>
+                    <div class="about-developer">
+                        Developed, Designed and Deployed by <a
+                            href="https://simpleportfolio.pythonanywhere.com/user/Festus/"
+                            title="Festus Ali's Portfolio" target="_blank" rel="noopener noreferrer">Festus Ali</a>.
+                        <br>
+                        Festus is a passionate Python/Django Web developer who emphasises code readability,
+                        scalability and maintainability. I develop well tested and user centered websites that
+                        deoesn't compromise on Client's requirements.
+                    </div>
+                    <div class="contact-developer">
+                        <div class="mt-2  font-weight-bold lead">Contact Via:</div>
+                        <div class="font-weight-bolder">
+                            <a class="btn btn-outline-light"
+                                href="https://simpleportfolio.pythonanywhere.com/user/Festus/" title="Portfolio"
+                                target="_blank" rel="noopener noreferrer"><span class="fa fa-code"></span>
+                            </a>
+                            <a class="btn btn-outline-light" href="https://github.com/Festusali" title="Github Account"
+                                target="_blank" rel="noopener noreferrer"><span class="fa fa-github"></span></a>
+                            <a class="btn btn-outline-light" href="https://twitter.com/alifestus"
+                                title="Twitter Account" target="_blank" rel="noopener noreferrer"><span
+                                    class="fa fa-twitter"></span></a>
+                            <a class="btn btn-outline-light" href="https://linkedin.com/in/festus-ali"
+                                title="LinkedIn Account" target="_blank" rel="noopener noreferrer"><span
+                                    class="fa fa-linkedin"></span></a>
+                            <a class="btn btn-outline-light" href="https://facebook.com/festus-ali.560"
+                                title="Facebook Account" target="_blank" rel="noopener noreferrer"><span
+                                    class="fa fa-facebook"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
 
-    <div id="mail-dev" class="mail-dev">
-        Developed and Designed by <a href="maito:festusali@gmail.com">Ali Okechukwu Festus</a>
-    </div>
+            {% block copyright %}
+            <div class="copyright">
+                Copyright © {% now 'Y' %} CBTest&reg;<br> All rights reserved. No content of this site shall be lifted
+                without proper reference and consent of "CO&nbsp;Computers&reg;" or it's management.
+            </div>
+            {% endblock copyright %}
+        </div>
+    </footer>
 
+    {% block scripts %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'popper/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap4/js/bootstrap.min.js' %}"></script>
+    {% endblock scripts %}
 
-    <did id="pad-foot" class="pad-foot">
-        .<br>
-    </did>
-    
-    <div id="foot" class="foot">
-        {% block foot %}Copyrite © 2018 CBTest®<br> All rights reserved. No content of this site shall be lifted without proper reference and consent of "CO Computers®" or it's management. {% endblock foot %}
-    </div>
+    {% block script %}
+    <script>
+        $(window).on("load", () => {
+            let toggle = false;
+            $("#toggleSideBar").click(() => {
+                toggle = !toggle;
+                if (toggle) {
+                    $("#content").animate({
+                        "margin-left": "30px"
+                    });
+                    $("#menu").animate({
+                        width: 30
+                    });
+                    $("#sideNav").css("display", "none");
+                    $("#toggleSideBar").removeClass("fa fa-close").addClass("fa fa-bars").attr("title",
+                        "Expand Side Bar");
+                } else {
+                    $("#sideNav").css("display", "inline-block");
+                    $("#content").animate({
+                        "margin-left": "300px"
+                    })
+                    $("#menu").animate({
+                        width: 300
+                    });
+                    $("#toggleSideBar").removeClass("fa fa-bars").addClass("fa fa-close").attr("title",
+                        "Collapse Side Bar");
+                }
+            });
+        });
+    </script>
+    {% endblock %}
 </body>
+
 </html>

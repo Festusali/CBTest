@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block page_title %}Marked Scripts Report{% endblock %}
+
+{% block content %}
+<header class="pb-2">
+    {% block title %}<h1> <span class="heading">Marked Scripts Report</span></h1>{% endblock %}
+    {% block sub_title %}<h3 class="sub-heading">Report Of Each User's Score, Grade, etc.</h3>
+    {% endblock %}
+</header>
+<div class="pb-3">
+    Here is the breakdown of users and their individual scores on the course: <strong>{{ ans.course }}</strong>
+</div>
+<div class="table-responsive pb-2">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Course Title</th>
+                <th>Score</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in cr %}
+            <tr>
+                <td>{{ c.user.full_name }}</td>
+                <td>{{ c.course }}</td>
+                <td>{{ c.score }}</td>
+                <td>{{ c.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="pb-5">
+    Total students scores for <strong>{{ ans.course }}</strong> for <strong><em>{{ ans.get_semester_display }} {{ ans.get_level_display }}</em></strong> is: <strong>{{ score }}</strong> <br><br>
+    That's all the record available here. You may wish to <strong class="text-success">Print</strong> or to navigate to the <strong class="text-info">Home Page</strong>.
+</div>
+
+<div class="clearfix">
+    <a href="{% url 'index' %}" class="btn btn-info float-left">Home Page</a>
+    <button type="submit" class="btn btn-success float-right disabled">Print</button>
+</div>
+{% endblock %}

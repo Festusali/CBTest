@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 
 {% block page_title %}500 | Server Error{% endblock %}
-
-{% block title %}Server Downtime{% endblock %}
-{% block sub_title %}The Server Is Currently Down{% endblock %}
-
 {% block content %}
-
-<div class="details">
-    <p class="note">Our server is currently down. Please try again later.<br>
-        The problem is from our end and we are working on fixing it right away.
-    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
-</div>
-
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1>
+                    <span class="heading">
+                        Server Downtime
+                    </span>
+                </h1>
+                {% endblock %}
+            </header>
+            <div>
+                Our server is currently down. Please try again later.<br>
+                The problem is from our end and we are working on fixing it right away <br><br>
+                You can continue at the <a href="{% url 'index' %}" class="btn btn-success btn-sm" title="Computer Based Test">Home Page</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,8 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
+{% block page_title %}Sign Out Success{% endblock %}
 {% block content %}
-<p>You're logged out.<br>
-
-<a href="{% url 'login' %}" title="Login">Login Again</a> or head over to <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a> as a guest.<br> You can likewise <a href="{% url 'register' %}" title="Register new account"> Create New Account</a>
-
-{% endblock %}
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1><span class="heading">
+                        You Are Signed Out
+                    </span></h1>
+                {% endblock %}
+            </header>
+            <div>
+                <a href="{% url 'login' %}" class="btn btn-success btn-sm" title="Sign In">Sign In Again</a> or head over to <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a> as a guest.
+            </div>
+        </div>
+    </div>
+</section>

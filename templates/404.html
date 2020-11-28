@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 
-{% block page_title %}404 | Content not Found{% endblock %}
-
-{% block title %}Content Not Nound{% endblock %}
-{% block sub_title %}Requested Content Not Found{% endblock %}
-
+{% block page_title %}Content not Found{% endblock %}
 {% block content %}
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1>
+                    <span class="heading">
+                        Requested Content Not Found!
+                    </span>
+                </h1>
+                {% endblock %}
+            </header>
+            <div>
+                The requested content at <strong>{{ request_path }}</strong> could not be found. <br>
+                You may have entered the wrong url or that the content have been moved to another location. Please
+                verify and try again.<br>
 
-<div class="details">
-    <p class="note"><span class="emphasis">{{ exception }}, </span>the requested content at <span class="emphasis">{{ request_path }} </span>could not be found.</p>
-    This error mosty occur when typing long website address by hand. Please try and verify that the address is correctly spelt.<br>
-    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
-</div>
-
+                At the moment you can navigate to the <a href="{% url 'index' %}" class="btn btn-success btn-sm"
+                    title="Computer Based Test">Home Page</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

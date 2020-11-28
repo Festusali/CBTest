@@ -1,35 +1,31 @@
 {% extends "base.html" %}
+
+{% block page_title %}Sign In To Your Account{% endblock page_title %}
+
 {% block content %}
-
-<a href="{% url 'register' %}" title="Register new account">New Account </a><br>
-
-{% if form.errors %}
-    <p class="errorlist">Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<table>
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-
-    <div><tr>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </tr></div>
-    <div><tr>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </tr></div>
-    
-    <div><tr><td>
-      <input type="submit" value="login" /></td>
-      <td><input type="hidden" name="next" value="{{ next }}" /></td>
-    </tr></div>
-</form>
-</table>
-
-
-<p><a href="{% url 'password_reset' %}">Lost Password?</a> Or <a href="{% url 'register' %}" title="Register new account">Create New Account.</a></p>
-
-<a href="{% url 'index' %}" title="Home Page">Continue without login</a>
+<section id="login">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1><span class="heading">
+                        Sign In To Your Account
+                    </span></h1>
+                {% endblock %}
+            </header>
+            <div>
+                Quickly sign in using your registered <strong>username</strong> and <strong>password</strong> below.
+            </div>
+            {% include '_partial/login_form.html' %}
+            <div class="pt-3">
+                Having problem signing in?
+                <div class="clearfix">
+                    <a href="{% url 'password_reset' %}" class="btn btn-primary float-left">Reset Password</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary float-right">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

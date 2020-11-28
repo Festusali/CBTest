@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block page_title %}{{ title_text }}{% endblock page_title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <header class="pb-5">
+            {% block title %}<h1> <span class="heading">{{ title_text }}</span></h1>{% endblock %}
+        </header>
+        <div class="pb-3">
+            {{ detail_text|safe }}
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="clearfix">
+                <a href="{% url 'index' %}" class="btn btn-danger float-left">Cancel</a>
+                <button type="submit" class="btn btn-success float-right">Proceed</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

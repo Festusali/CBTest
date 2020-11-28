@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block page_title %}Student's Semester Result{% endblock %}
+
+{% block content %}
+{% with semester=result.get_semester_display level=result.get_level_display %}
+
+<header class="pb-5">
+    {% block title %}
+    <h1>
+        <span class="heading">Student's Semester Result</span>
+    </h1>
+    {% endblock title %}
+</header>
+
+<div class="pb-2">
+    <div class="pb-3">
+        Break down of <strong>{{ result.user.full_name }}</strong> result for
+        <strong>{{ semester }} {{ level }}</strong>. Details include: total courses sat for, total score, units and GPA.
+    </div>
+
+    <div class="table-responsive pb-2">
+        <table class="table table-striped table-hover">
+            <div>
+                <h4>Student's Personal Details</h4>
+            </div>
+            <tbody>
+                <tr>
+                    <td>Full Name:</td>
+                    <td>{{ result.user.full_name }}</td>
+                </tr>
+                <tr>
+                    <td>Level</td>
+                    <td>{{ level }}</td>
+                </tr>
+                <tr>
+                    <td>Semester</td>
+                    <td>{{ semester }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% if result.get_courses %}
+    <div class="table-responsive pb-2">
+        <table class="table table-striped table-hover">
+            <div>
+                <h4>Compiled Courses and Results</h4>
+            </div>
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Title</th>
+                    <th>Course Unit</th>
+                    <th>Total Score</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th colspan="2">Total Courses</th>
+                    <th>Total Units</th>
+                    <th>Total Score</th>
+                    <th>GPA</th>
+                </tr>
+                <tr class="font-weight-bold">
+                    <td colspan="2">{{ result.total_courses }}</td>
+                    <td>{{ result.total_units }}</td>
+                    <td>{{ result.total_score }}</td>
+                    <td>{{ result.gpa }}</td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for c in result.get_courses %}
+                <tr>
+                    <td>{{ c.course.code }}</td>
+                    <td>{{ c.course.title }}</td>
+                    <td>{{ c.course.unit }}</td>
+                    <td>{{ c.score }}</td>
+                    <td>{{ c.grade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clearfix">
+        <a href="{% url 'index' %}" class="btn btn-info float-left">Home Page</a>
+        <button type="submit" class="btn btn-success float-right disabled">Print</button>
+    </div>
+    {% else %}
+    <div class="bg-error">No Semester Results Found.</div>
+    {% endif %}
+
+    <div class="pt-5">
+        That's the available records. You might also want to check
+        <a href="{% url 'show_course_result' %}" class="btn btn-primary btn-sm" title="Course Result">Course Result</a> or
+        <a href="{% url 'choose_level_result' %}" class="btn btn-primary btn-sm" title="Level/Session Result">Level/Session Result</a>
+    </div>
+</div>
+
+{% endwith %}
+{% endblock content %}

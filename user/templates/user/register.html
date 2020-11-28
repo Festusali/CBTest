@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}Create Free Account{% endblock page_title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <header class="pb-2">
+        {% block title %}<h1> <span class="heading">Create Free Account</span></h1>{% endblock %}
+        {% block sub_title %}<h3 class="sub-heading">Create Free Account And Get Access To Personalized Features</h3>{% endblock %}
+    </header>
+
+    <div class="col-lg-10">
+        <div class="pb-3">
+            It's as simple as entering your username and email. Then your password and confirmation. <br>
+            Super easy!!! Get it done...
+        </div>
+        
+        {% include '_partial/register_form.html' %}
+        <div class="pt-3">
+            Do you have existing account?
+            <div class="clearfix">
+                <a href="{% url 'password_reset' %}" class="btn btn-primary float-left">Reset Password</a>
+                <a href="{% url 'login' %}" class="btn btn-primary float-right">Sign In</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

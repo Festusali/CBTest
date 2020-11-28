@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block page_title %} {{ user_detail.full_name }} Biodata {% endblock %}
+
+
+{% block content %}
+<header class="pb-5">
+    {% block title %}<h1> <span class="heading">{{ user_detail.full_name }} Biodata</span></h1>{% endblock %}
+    {% block sub_title %}<h3 class="sub-heading">Personal, Kin, Sponsor And Programme Details</h3>
+    {% endblock %}
+</header>
+
+<div class="pb-5">
+    <h4>
+        Personal Information
+        <a class="btn btn-outline-success fa fa-edit float-right"
+            href="{% url 'edit_profile' pk=request.user.pk username=request.user.username %}#personalData" title="Modify Personal Details"></a>
+    </h4>
+    <hr>
+    <div class="float-right">
+        {% if user_detail.pictures %}
+        <img src="{{ user_detail.pictures.url }}" alt="Profile Picture" width="120px" height="120px">
+        {% endif %}
+        <div class="img-text">Student Passport</div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+
+            <tr>
+                <td>Username:</td>
+                <td>{{ user_detail.user.username }}</td>
+            </tr>
+
+            <tr>
+                <td>Surname:</td>
+                <td>{{ user_detail.user.last_name }}</td>
+            </tr>
+
+            <tr>
+                <td>First Name:</td>
+                <td>{{ user_detail.user.first_name }}</td>
+            </tr>
+
+            <tr>
+                <td>Middle Name:</td>
+                <td>{{ user_detail.middle_name }}</td>
+            </tr>
+
+            <tr>
+                <td>Birth Date:</td>
+                <td>{{ user_detail.birth_date }}</td>
+            </tr>
+
+            <tr>
+                <td>Email:</td>
+                <td>{{ user_detail.email }}</td>
+            </tr>
+
+            <tr>
+                <td>Gender:</td>
+                <td>{{ user_detail.get_gender_display }}</td>
+            </tr>
+
+            <tr>
+                <td>Marital Status:</td>
+                <td>{{ user_detail.get_status_display }}</td>
+            </tr>
+
+            <tr>
+                <td>Religion:</td>
+                <td>{{ user_detail.get_religion_display }}</td>
+            </tr>
+
+            <tr>
+                <td>State of Birth:</td>
+                <td>{{ user_detail.state }}</td>
+            </tr>
+
+            <tr>
+                <td>L.G.A:</td>
+                <td>{{ user_detail.lga }}</td>
+            </tr>
+
+            <tr>
+                <td>Home Town:</td>
+                <td>{{ user_detail.home_town }}</td>
+            </tr>
+
+            <tr>
+                <td>Permanent Address:</td>
+                <td>{{ user_detail.perm_address }}</td>
+            </tr>
+
+            <tr>
+                <td>Phone:</td>
+                <td>{{ user_detail.phone }}</td>
+            </tr>
+
+            <tr>
+                <td>Contact Address:</td>
+                <td>{{ user_detail.contact_address }}</td>
+            </tr>
+
+            <tr>
+                <td>Blood Group:</td>
+                <td>{{ user_detail.blood_group }}</td>
+            </tr>
+
+            <tr>
+                <td>Genotype:</td>
+                <td>{{ user_detail.genotype }}</td>
+            </tr>
+
+            <tr>
+                <td>Last Modified:</td>
+                <td>{{ user_detail.last_modified }}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div class="pb-5 table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <h4>
+                        Sponsor's Details
+                        <a class="btn btn-outline-success fa fa-edit float-right"
+                            href="{% url 'edit_profile' pk=request.user.pk username=request.user.username %}#sponsorData"
+                            title="Modify Sponsor Details"></a>
+                    </h4>
+                </th>
+                <th colspan="2">
+                    <h4>
+                        Next of Kin's Details
+                        <a class="btn btn-outline-success fa fa-edit float-right"
+                            href="{% url 'edit_profile' pk=request.user.pk username=request.user.username %}#kinData"
+                            title="Modify Next of Kin's Details"></a>
+                    </h4>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name: </td>
+                <td>{{ user_detail.sponsor.name }}</td>
+                <td>Name: </td>
+                <td>{{ user_detail.kin.name }}</td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>{{ user_detail.sponsor.address }}</td>
+                <td>Address: </td>
+                <td>{{ user_detail.kin.address }}</td>
+            </tr>
+            <tr>
+                <td>Relationship: </td>
+                <td>{{ user_detail.sponsor.get_relationship_display }}</td>
+                <td>Relationship: </td>
+                <td>{{ user_detail.kin.get_relationship_display }}</td>
+            </tr>
+            <tr>
+                <td>Phone: </td>
+                <td>{{ user_detail.sponsor.phone }}</td>
+                <td>Phone: </td>
+                <td>{{ user_detail.kin.phone }}</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>{{ user_detail.sponsor.email }}</td>
+                <td>Email: </td>
+                <td>{{ user_detail.kin.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="pb-2">
+    <h4>
+        Programme Details
+        <a class="btn btn-outline-success fa fa-edit float-right"
+            href="{% url 'edit_profile' pk=request.user.pk username=request.user.username %}#programmeData" title="Modify
+            Programme
+            Details"></a>
+    </h4>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <td>Department: </td>
+                <td>{{ user_detail.programme.department }}</td>
+                <td>Mode of Entry: </td>
+                <td>{{ user_detail.programme.get_entry_mode_display }}</td>
+            </tr>
+            <tr>
+                <td>Student Type: </td>
+                <td>{{ user_detail.programme.get_student_type_display }}</td>
+                <td>Mode of Study: </td>
+                <td>{{ user_detail.programme.get_study_mode_display }}</td>
+            </tr>
+            <tr>
+                <td>Programme: </td>
+                <td>{{ user_detail.programme.get_programme_display }}</td>
+                <td>Entry Year: </td>
+                <td>{{ user_detail.programme.entry_year }}</td>
+            </tr>
+            <tr>
+                <td>Reg. No: </td>
+                <td>{{ user_detail.programme.reg_no }}</td>
+                <td>Year of Graduation: </td>
+                <td>{{ user_detail.programme.graduation_year }}</td>
+            </tr>
+            <tr>
+                <td>JAMB Reg. No: </td>
+                <td>{{ user_detail.programme.jamb_no }}</td>
+                <td>Year of Study: </td>
+                <td>{{ user_detail.programme.get_level_display }}</td>
+            </tr>
+            <tr>
+                <td>Student Mode: </td>
+                <td>{{ user_detail.programme.get_student_mode_display }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,340 +1,194 @@
-/* Body styling */
+/* Ruleset for every element onn the page. */
+* {
+    box-sizing: border-box;
+}
+
+/* Rules for the body element. */
 body {
-    text-align: left;
-    color: #000000;
-    background-color: #E6E6FA;
-    }
-
-/* Heading and sub-heading styling */
-h1, h3 {
-    text-align: left;
-    color: #04145a;
-    background-color: rgb(148, 160, 158);
-    }
-
-
-/* Link Styling */
-a {
-    color: #008cff;
-    text-decoration: none;
-    }
-
-
-/* Footer and foot note styling */
-.foot {
-    text-align: center;
-    color: #21440a;
-    background-color: azure;
-    border-style: groove;
-    border-width: 3px;
-    max-height: 10%;
-    border-color: #77b6e9;
-    border-radius: 2em;
-    padding: 5px;
-    margin: 5px 5px 5px 5px;
-    position: fixed;
-    bottom: 0;
-    right: 10px;
-    left: 10px;
-    overflow-x: auto;
-}
-
-
-
-/* navigation bar styling */
-.menu {
-    font-size: 18pt;
-    background-color: #a7cce64f;
-    list-style-type: none;
+    background-color: rgb(50, 95, 235);
+    color: azure;
+    padding: 0;
     margin: 0;
-    padding: 2px 5px;
-    width: 175px;
-    position: fixed;
-    height: 350px;
-    overflow: auto;
 }
 
-/* List and links of menu bar styling */
-.menu li a {
-    width: 96%;
-    display: block;
-    color: #000000;
-    text-decoration: none;
-    text-align: left;
-}
-
-.menu li a:active {
-    width: 96%;
-    background-color: rgb(22, 94, 24);
-    color: white;
-}
-
-.menu li a:hover:not(.active) {
-    width: 96%;
-    background-color: #555;
-    color: white;
-}
-
-
-.menu li a, .dropbtn {
-    width: 96%;
-    display: inline-block;
-}
-
-.menu li.dropdown {
-    width: 94%;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    background: linear-gradient(to right, rgb(52, 20, 104), rgba(13, 155, 250, 0.3));
-    width: 96%;
-    font-size: 16pt;
-    position: absolute;
-    min-width: 80px;
-    box-shadow: -2px -2px;
-}
-
-.dropdown-content a {
-    width: 96%;
-    color: black;
-    background-color: #a7cce64f;
-    padding: 4px 4px;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    width: 96%;
-    background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-    font-size: 16pt;
-    width: 96%;
-    background-color: #a7cce64f;
-    margin: 0;
-    padding: 0px;
-    display: block;
-}
-
-
-
-.pad-foot {
-    font-size: 2px;
-    min-height: 8%;
-    padding-bottom: 15%;
-}
-
-
-/* Main content styling */
+/* Rules for the main content of the page. */
 #content {
-    margin-left: 190px;
-    padding: 1px 10px 10px 10px;
-    max-height: 90%;
-    border: 3px groove #a7cce64f;
-    border-radius: 1.5em;
-    background-color: #f8fafc;
-    overflow-x: auto;
+    background-color: white;
+    color: black;
 }
 
+/* Rules for the side bar. */
+#menu {
+    background-color: rgb(45, 149, 235);
+}
 
-/* Logo styles */
-#logo {
-    font-size: 25px;
+/* Rules for the side bar links. */
+aside a,
+aside a:visited,
+aside a:hover,
+aside a:active {
+    color: white;
+    text-decoration: none;
+}
+
+/* Rules for the side bar un-ordered lists. */
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+#profileLinks,
+#tokenLinks, #resultLinks, #courseLinks {
+    background-color: rgb(45, 149, 235);
+    border: none;
+}
+
+/* Rules for the Top Nav Bar and footer elements. */
+#topNav,
+footer {
+    background-color: #325feb;
+}
+
+/* Rules for the footer element. */
+footer {
+    min-height: 80px;
+}
+
+/* Rules for the footer link elements.*/
+footer a, footer a:active {
+    color: #08f53d;
+}
+footer a:visited, footer a:hover {
+    color: #ffc107;
+}
+
+/* Rules for the main heading.*/
+h1, h2, h3 {
     text-align: center;
-    width: auto;
-    float: left;
-    position: fixed;
-    margin-left: 190px;
-    
 }
 
+h1 span.heading {
+    border-bottom: 1.5px solid lightgray;
+}
 
-/* Authentication links styling */
-#auth {
-    font-size: 20pt;
+/* Rules for the heading elements. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #2d95eb;
+    text-shadow: 1px 2px lightgray;
+}
+
+/* clear fix for floated elements. */
+.clearfix {
+    clear: both;
+}
+
+/* Add 10px to all sides of an element. */
+.pd-1 {
+    padding: 10px !important;
+}
+
+/* Add 20px to all sides of an element. */
+.pd-2 {
+    padding: 20px !important;
+}
+
+/* Add 10px to top and bottom sides of an element. */
+.pd-tb-1 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+/* Add 10px to left and right sides of an element. */
+.pd-lr-1 {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+/* Add 20px to top and bottom sides of an element. */
+.pd-tb-2 {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+/* Add 20px to left and right sides of an element. */
+.pd-lr-2 {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+/* Line divider for sections. */
+#divider {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 2px solid azure;
+}
+
+/* Hide the toggle side menu button by default. */
+.hide-small {
+    visibility: hidden;
+}
+
+/* Container element for the toggle side bar button. */
+.toggle-container {
+    position: relative;
+    float: right;
+}
+
+/* Button to toggle side bar. */
+#toggleSideBar {
+    background-color: #325feb;
+    padding: 5px;
+    font-size: x-large;
+}
+
+/* Make all lables bold by default. */
+label {
     font-weight: bold;
-    text-align: right;
-    margin-left: 190px;
-    margin-right: 5px;
-    padding-bottom: 5px;
-    padding-right: 3px;
 }
 
-/*edit other styles */
-.edit-others {
-    width: auto;
-    float: right;
-    text-align: right;
-}
-
-/*Mail Developer styles */
-.mail-dev {
-    width: 150px;
-    float: left;
-    max-height: 90%;
-    text-align: right;
-}
-
-/* Profile Picture Styling */
-.p-pics {
-    width: 122px;
-    height: 122px;
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-left: auto;
-    float: right;
-    text-align: center;
-}
-
-
-
-/* Student Signature Styling */
-.sign {
-    position: absolute;
-    width: 102px;
-    height: 62px;
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-left: auto;
-    right: 10px;
-    bottom: 20px;
-    float: right;
-    text-align: center;
-}
-
-
-
-/*Forms Error list formating/styling */
-.errorlist {
+/* Highlight asterisks on input lables to show it's a required field. */
+.asteriskField {
     color: red;
-    background-color: rgb(180, 164, 164);
-    font-style: italic;
-    font-weight: bold;
 }
 
-
-/* Emphasized elements styling */
-.emphasis {
-    font-weight: bold;
-}
-
-
-/* Notable paragraphs */
-.note {
-    font-weight: bold;
-    text-align: center;
-}
-
-
-/* Warnings styling */
-.warnings {
-    font-weight: bold;
-    background-color: #a0fd62;
-    color: hotpink;
-}
-
-
-
-/* Input fields styling */
-input {
+/* Style question and descriptions appropriately. */
+.question .description {
     font-size: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    height: 25px;
-    background-color: rgb(234, 242, 247);
-    border-radius: 0.2em;
+    font-weight: bold;
+    color: rgb(45, 149, 235);
 }
 
-/* Select fields styling */
-select {
-    font-size: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    height: 25px;
-    max-width: 95%;
-    background-color: rgb(234, 242, 247);
-    border-radius: 0.2em;
-    overflow: auto;
+/* Forces lables to be normal font. */
+.normal-label {
+    font-weight: normal!important;
 }
 
-/* Input type of text styles */
-input[type=text], input[type=password] {
-    font-size: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 300px;
-    height: 25px;
-    background-color: rgb(234, 242, 247);
+/* Styles for medium sized screens and above. */
+@media (min-width:576px) {
+    #content {
+        margin-left: 300px;
+        background-color: white;
+        color: black;
+        min-height: 600px;
+    }
+
+    #menu {
+        position: sticky;
+        top: 66px;
+        width: 300px;
+        background-color: rgb(45, 149, 235);
+        min-height: 400px;
+        float: left;
+    }
+
+    /* Show toggle side bar button for medium sized devices. */
+    .hide-small {
+        visibility: visible;
+    }
 }
-
-/* Submit and Reset buttons styling */
-input[type=submit], input[type=reset] {
-    font-size: 14pt;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 0.5em;
-    background-color: #dbe3e9ce;
-}
-
-/* Submit button hover effect styling */
-input[type=submit]:hover {
-    background-color: #1ecf27;
-    border-radius: 0.5em;
-}
-
-/* Reset button hover effect styling */
-input[type=reset]:hover {
-    background-color: rgb(248, 8, 8);
-    border-radius: 0.5em;
-}
-
-
-
-/* Results table styling */
-table {
-    border-width: 2px;
-    border-style: groove;
-    border-color: rgb(98, 169, 177);
-    border-collapse: collapse;
-    border-radius: 5.0em;
-    margin-bottom: 20px;
-}
-
-/* Odd table rows styling */
-table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-}
-
-/* Even table rows styling */
-table tr:nth-child(even) {
-    background-color: #ffffff;
-}
-
-td {
-    border-bottom: 1px inset #008cff;
-    padding: 5px 10px;
-    margin: 2px 2px;
-}
-
-th {
-    text-align: center;
-    background-color: rgb(227, 247, 250);
-    color: #04145a;
-    font-weight: bolder;
-    border-left: 2px, solid #008cff;
-    border-bottom: 2px inset #008cff;
-    padding: 5px 10px;
-}
-
-
-
-/* Horizontal rule styles */
-hr {
-    border-width: 3px;
-    width: 100%;
-    border-color: #77b6e9;
-}
-
-

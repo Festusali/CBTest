@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block page_title %}Compiled Students' Results{% endblock %}
+
+{% block content %}
+<header class="pb-5">
+    {% block title %}
+    <h1> <span class="heading">Compiled Students' Results</span></h1>
+    {% endblock %}
+    {% block sub_title %}
+    <h3 class="sub-heading">Compiled Results For {{ semester }} {{ level }}</h3>
+    {% endblock %}
+</header>
+
+{% if results %}
+<div class="pb-3">
+    Results break down of each student's compiled result for <strong>{{ level }} {{ semester }}</strong>. Total courses
+    sat for, total score, units and their GPA.
+</div>
+
+<div class="table-responsive pb-2">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Total Courses</th>
+                <th>Total Score</th>
+                <th>Total Units</th>
+                <th>GPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.user.full_name }}</td>
+                <td>{{ r.total_courses }}</td>
+                <td>{{ r.total_score }}</td>
+                <td>{{ r.total_units }}</td>
+                <td>{{ r.gpa }}</td>
+            </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pb-5">
+    That is all of the available result records for <strong>{{ semester }} {{ level }}</strong>.<br><br>
+    You may wish to <strong class="text-success">Print</strong> or to navigate to
+    the <strong class="text-info">Home Page</strong>.
+</div>
+<div class="clearfix">
+    <a href="{% url 'index' %}" class="btn btn-info float-left">Home Page</a>
+    <button type="submit" class="btn btn-success float-right disabled">Print</button>
+</div>
+{% else %}
+<div class="bg-error">No Compiled Results Found.</div>
+{% endif %}
+
+{% endblock %}

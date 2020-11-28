@@ -119,7 +119,7 @@ class Migration(migrations.Migration):
                 ('option4', models.CharField(blank=True, help_text='Input option 4', max_length=800)),
                 ('option5', models.CharField(blank=True, help_text='Input option 5', max_length=800)),
                 ('answer', models.PositiveSmallIntegerField(help_text="Input the option that is the correct answer. eg: '1' for option1 or '2' for option2")),
-                ('mark', models.PositiveSmallIntegerField(verbose_name='What is the score/mark of this question?')),
+                ('score', models.PositiveSmallIntegerField(verbose_name='What is the score/score of this question?')),
                 ('course', models.ForeignKey(help_text='Select course', on_delete=django.db.models.deletion.CASCADE, related_name='course', to='cbt.Course')),
             ],
         ),
@@ -141,8 +141,8 @@ class Migration(migrations.Migration):
             name='School',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Name of university', max_length=200)),
-                ('detail', models.TextField(help_text='Details of the University')),
+                ('title', models.CharField(help_text='Name of school', max_length=200)),
+                ('detail', models.TextField(help_text='Details of the school')),
             ],
         ),
         migrations.CreateModel(
@@ -211,7 +211,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='faculty',
             name='school',
-            field=models.ForeignKey(help_text='Choose the University', on_delete=django.db.models.deletion.CASCADE, related_name='University', to='cbt.School'),
+            field=models.ForeignKey(help_text='Choose the school', on_delete=django.db.models.deletion.CASCADE, related_name='school', to='cbt.School'),
         ),
         migrations.AddField(
             model_name='department',

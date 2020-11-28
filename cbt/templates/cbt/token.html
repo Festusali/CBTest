@@ -1,60 +1,90 @@
 {% extends "base.html" %}
 
-{% block page_title %}Generated Tokens {% endblock %}
-
-{% block title %}Examination Tokens {% endblock %}
-{% block sub_title %}Generated Examination Tokens For {{ level }} {{ semester }} {% endblock %}
-
+{% block page_title %}Generated Tokens{% endblock page_title %}
 
 {% block content %}
-<div class="details">
-    <p class="note">Shown below are the Secret Examinations Tokens for <span class="emphasis">{{ level }} {{ semester }}</span>. The tokens below can only be used once for the specified examination.</p>
-    <div class="warning">Please be warned that your token is unique to you and the chosing course. Never disclose your token to anybody as it will render your chances for the examination invalid if used.</div>
+<header class="pb-2">
+    {% block title %}
+    <h1>
+        <span class="heading">
+            Generated Tokens
+        </span>
+    </h1>
+    {% endblock title %}
+    {% block sub_title %}
+    <h3 class="sub-heading">
+        Generated Examination Tokens For {{ level }} {{ semester }}
+    </h3>
+    {% endblock sub_title %}
+</header>
+<div class="pb-3">
+    Here is the breakdown of users and their individual scores on the course: <strong>{{ ans.course }}</strong>
+</div>
+
+<div class="pb-3">
+    <p class="bg-info p-2">
+        Shown below are the Secret Examinations Tokens for <strong>{{ level }} {{ semester }}</strong>. The tokens below
+        can only be used once for the specified examination.
+    </p>
+    <div class="bg-warning p-2">
+        Please be warned that your token is unique to you and the chosing course. Never disclose your token to anybody
+        as it will render your chances for the examination invalid if used.
+    </div>
 </div>
 
 {% if perm %}
-<div class="warning">You don't have permissions to view students' examination tokens.
-    <br>You can check what you are permitted to do at the <a href="{% url 'index' %}" title="Computer Based Test">home page </a>or to the <span class="emphasis">navigation bar.</span>
-</div>
-
-
-{% elif u_token %}
-<div id="tokens" class='tokens'>
-<table>
-    <h3>Generated Examination Token</h3>
-    <tr> <td colspan="2"> {{ u_token.course }} ({{ u_token.course.code }}) </td> </tr>
-    <tr> <td>Level</td> <td> {{ level }} </td> </tr>
-    <tr> <td>Semester</td> <td> {{ semester }} </td> </tr>
-    <tr> <td>Student*</td> <td><strong> {{ u_token.user.full_name }}</strong> </td> </tr>
-    <tr> <td>Token*</td> <td><strong> {{ u_token.token }}</strong> </td> </tr>
-</table>
-</div>
+.
 
 {% elif u_tokens %}
-<div id="tokens" class='tokens'>
-{% for u_token in u_tokens %}
-    <table>
+<div id="tokens" class="tokens">
     <h3>Generated Examination Tokens</h3>
-        <tr> <td colspan="2">{{ u_token.course }} ({{ u_token.course.code }}) </td> </tr>
-        <tr> <td>Level</td> <td> {{ level }} </td> </tr>
-        <tr> <td>Semester</td> <td> {{ semester }} </td> </tr>
-        <tr> <td>Student*</td> <td><strong> {{ u_token.user.full_name }}</strong> </td> </tr>
-        <tr> <td>Token*</td> <td><strong>{{ u_token.token }}</strong> </td> </tr>
-    </table>
-{% endfor %}
-</div>
+    <div class="p-3">
+        <div class="row">
+            {% for token in u_tokens %}
+            <div class="col-sm-6 col-md-4 col-lg-3 border border-primary">
+                <table class="table table-hover p-3">
+                    <tr>
+                        <th colspan="2">{{ token.course }} ({{ token.course.code }}) </th>
+                    </tr>
+                    <tr>
+                        <th>Level</th>
+                        <td> {{ level }} </td>
+                    </tr>
+                    <tr>
+                        <th>Semester</th>
+                        <td> {{ semester }} </td>
+                    </tr>
+                    <tr>
+                        <th>Student*</th>
+                        <td><strong> {{ token.user.full_name }}</strong> </td>
+                    </tr>
+                    <tr>
+                        <th>Token*</th>
+                        <td><strong>{{ token.token }}</strong> </td>
+                    </tr>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-{% elif flush %}
-<div class="flush">
-    Total number of <span class="emphasis">{{ flushed }} tokens </span>has been flushed.<br> The tokens where for <span class="emphasis">{{ course }} {{ level }} {{ semester }}</span>.
-</div>
+    {% elif flush %}
+    <div class="flush">
+        Total number of <span class="emphasis">{{ flushed }} tokens </span>has been flushed.<br> The tokens where for
+        <span class="emphasis">{{ course }} {{ level }} {{ semester }}</span>.
+    </div>
 
-{% else %}
-<p class="note">No Generated Examination Tokens Found.</p>
-
-{% endif %}
-<div class="details">
-    You can also check other: <span class="emphasis"><a href="{% url 'show_tokens' username=request.user.id %}" title="Show Tokens">Show other Examination Tokens</a>, <a href="{% url 'gen_tokens' username=request.user.id %}" title="Generate Tokens">Generate New Tokens</a></span> or maybe go back to the <span class="emphasis"><a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></span>.
+    {% else %}
+    <div class="bg-warning">No Generated Examination Tokens Found.</div>
+    {% endif %}
+    <div class="pb-2">
+        That is all the generated Tokens. You might wish to <strong><span class="text-success">Print</span></strong> or
+        navigate to the <strong><span class="text-info">Home Page</span></strong>
+    </div>
+    <div class="clearfix">
+        <a href="{% url 'index' %}" class="btn btn-info float-left">Home Page</a>
+        <button type="submit" class="btn btn-success float-right disabled">Print</button>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,49 +1,91 @@
 {% extends "base.html" %}
 
-{% block page_title %} Register Courses {% endblock %}
-
-{% block title %}Register Courses {% endblock %}
-{% block sub_title %}Please Register Your Courses For {{ level }} {{ semester }} {% endblock %}
+{% block page_title %}Register Courses{% endblock %}
 
 {% block content %}
-<div class="details">
-    <p class="note">Please ensure you choose your courses <span class="emphasis">correctly</span> as any wrong choice may not be easily <span class="emphasis">reversed</span> after <span class="emphasis">Registration</span>.</p>
+<header class="pb-5">
+    {% block title %}
+    <h1>
+        <span class="heading">
+            Register Courses
+        </span>
+    </h1>
+    {% endblock title %}
+    {% block sub_title %}
+    <h3 class="sub-heading">
+        Please Register Your Courses For {{ level }} {{ semester }}
+    </h3>
+    {% endblock sub_title %}
+</header>
+
+<div class="pb-2">
+    Please ensure you choose your courses <strong>correctly</strong> as any wrong choice may not be easily
+    <strong>reversed</strong> after <strong>registration</strong>.
 </div>
+
 <div id="courses" class='courses'>
-<form action='' method="POST">
-{% csrf_token %}
-    
-    {{ formset.management_form }}    
-    <table>
-        <tr>
-            <th>Select</th> <th>Course Title</th> <th>Course Code</th> <th>Course Unit</th>
-        </tr>
-    {% for form, c in f_c %}
-    {% if form.errors %}
-        {{ form.errors }}
-    {% endif %}
-    
-        <div><input type="hidden" name="form-{{ forloop.counter0 }}-user" id="id_form-{{ forloop.counter0 }}-user" value="{{ request.user.id }}"></div>
-        
-        <div><input type="hidden" name="form-{{ forloop.counter0 }}-level" id="id_form-{{ forloop.counter0 }}-level" value="{{ c.level }}"> </div>
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-        <div><input type="hidden" name="form-{{ forloop.counter0 }}-semester" id="id_form-{{ forloop.counter0 }}-semester" value="{{ c.semester }}"></div>
+        <div class="table-responsive pb-2">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Course Title</th>
+                        <th>Course Code</th>
+                        <th>Course Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form, c in f_c %}
 
-        <tr>
-            <td><input type="checkbox" name="form-{{ forloop.counter0 }}-course" id="id_form-{{ forloop.counter0 }}-course" value="{{ c.id }}"> </td>
-            <td>{{ c.title }}</td>
-            <td>{{ c.code }}</td>
-            <td>{{ c.unit }}</td>
-        </tr>
-    
-    {% endfor %}
-    </table>
-<div class="details">
-    <p class="note">Please make sure you have <span class="emphasis">reviewed</span> all chosen <span class="emphasis">courses</span> before <span class="emphasis">registering</span>.</p>
-    <p class="warning">You can click the <span class="emphasis">Reset</span> button to start afresh if you think you have made many mistakes already.</p>
-</div>
-<input type=submit value='Register Courses'> or <input type=reset value='Reset'> 
-</form>
+                    <tr>
+                        <input type="hidden" name="form-{{ forloop.counter0 }}-user"
+                            id="id_form-{{ forloop.counter0 }}-user" value="{{ request.user.id }}">
+
+                        <input type="hidden" name="form-{{ forloop.counter0 }}-level"
+                            id="id_form-{{ forloop.counter0 }}-level" value="{{ c.level }}">
+
+                        <input type="hidden" name="form-{{ forloop.counter0 }}-semester"
+                            id="id_form-{{ forloop.counter0 }}-semester" value="{{ c.semester }}">
+                        {% if form.errors %}
+                        <td colspan="4" class="bg-warning">
+                            {{ form.errors }}
+                        </td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="form-{{ forloop.counter0 }}-course"
+                                id="id_form-{{ forloop.counter0 }}-course" value="{{ c.id }}">
+                        </td>
+                        <td>{{ c.title }}</td>
+                        <td>{{ c.code }}</td>
+                        <td>{{ c.unit }}</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pb-2">
+            <div class="bg-info p-3">
+                Please make sure you have <strong>reviewed</strong> all chosen <strong>courses</strong> before
+                <strong>registering</strong>.
+            </div>
+            <div class="bg-warning p-3">
+                You can click <strong>Reset Choices</strong> button to start afresh if you think you have made wrong selections already.
+            </div>
+        </div>
+        <div class="clearfix">
+            <input type="reset" class="btn btn-danger float-left" value="Reset Choices"
+                title="Warning! This will clear all the choices you have have made so far.">
+            <button type="submit" class="btn btn-success float-right">Register Courses</button>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

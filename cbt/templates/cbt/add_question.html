@@ -1,66 +1,41 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{% block page_title %}Add New Questions {% endblock %}
-
-
-{% block title %}Add New Questions. {% endblock %}
-{% block sub_title %}Please add new questions as per needed. {% endblock %}
+{% block page_title %}Add New Question(s){% endblock %}
 
 {% block content %}
 
-{% if perm is False %}
-<div class="details">
-    <p class="warning">You don't have permission to add new questions.</p>
-    If you think this is an error, please contact the system administrator for further help.<br>
-    However, You can check other options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.<br> Or maybe, take a step 
-    <input type="button" value="<--Back" class="back-button" onClick=history.back()>
-</div>
+<div class="row">
+    <div class="col-12">
+        <header class="pb-5">
+            {% block title %}
+            <h1><span class="heading">
+                Add New Question(s)
+            </span></h1>
+            {% endblock %}
+        </header>
+        <div class="pb-3">
+            You are about to add <strong>{{ formset.total_form_count }} question(s)</strong> to the course: <strong>{{ course }}, {{ course.get_semester_display }} {{ course.get_level_display }}</strong>.
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
 
-
-{% elif can_add is True %}
-<div class="details"><p class="note">
-    Please not that you are about to add <span class="emphasis">{{ total }}</span> new questions into <span class="emphasis">{{ details.course }}</span>. You selected <span class="emphasis">{{ details.level }}</span> and <span class="emphasis">{{ details.semester }}</span>.<br> All fields therefore will be updated accordingly upon submission.
-</p>
-If you are in the wrong section, you can change the <a href="{% url 'new_question' %}" title="Add New Questions"><span class="emphasis">Course, Level, and or Semester</span></a> you want to add the questions. 
-</div>
-<div id="questions" class='questions'>
-<form action='' method="POST">
-{% csrf_token %}
-
-    {{ formset.management_form }}    
-    {% for form in formset %}
-    <table>
-        {% if form.non_field_errors %}
-            <tr><td>{{ form.non_field_errors }}</td></tr>
-        {% endif %}
-        {% for field in form.visible_fields %}
-            <div class="fieldWrapper">
-                {% if field.errors %}
-                <tr><td>{{ field.errors }}</td></tr>
-                {% endif %}
-                <tr> <td>{{ field.label_tag }}</td> <td>{{ field }}</td> </tr>
-                {% if field.help_text %}
-                <tr><td></td><td>{{ field.help_text|safe }}</td> </tr>
-                {% endif %}
+            <div class="row">
+            {% for form in formset %}
+                <div class="form-group col-lg-6 mb-2 pb-5">
+                    <h4>Question {{ forloop.counter }}</h4>
+                    {{ form|crispy }}
+                </div>
+            {% endfor %}
             </div>
-        {% endfor %}
-    </table>
 
-    {% endfor %}
-<input type=submit value='Save Questions'> or <input type=reset value='Reset Questions'> 
-
-</form>
-<p>
-    If you wish not to continue, please take time to explore other wealth of options on the <a href="{% url 'index' %}" title="Computer Based Test">home page</a>
-</p>
+            <div class="clearfix">
+                <a href="{% url 'index' %}" class="btn btn-danger float-left">Cancel</a>
+                <button type="submit" class="btn btn-success float-right">Proceed</button>
+            </div>
+        </form>
+    </div>
 </div>
-
-
-{% else %}
-<div class="details">
-    <p class="note">Please you do not have the permission to add new question(s).<br>For further enquiries, please contact the System Administrator.</p>
-    For the moment, please take time to explore other wealth of options on the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a>.
-</div>
-{% endif %}
 
 {% endblock %}

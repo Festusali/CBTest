@@ -1,63 +1,141 @@
-from django.urls import path, include
+"""The URL patterns for the cbt application.
+"""
 
-from . import views
+from django.urls import path
+from django.views.generic import TemplateView
+
+from cbt import views
 
 urlpatterns = [
-    path('test/', views.test, name="test"),
+    path(
+        #  The home page URL.
+        '', TemplateView.as_view(template_name='cbt/index.html'), name='index'
+    ),
+    path(
+        #  The Frequently Asked Questions URL.
+        'faq/', TemplateView.as_view(template_name='cbt/faq.html'), name='faq'
+    ),
 
+    path(
+        'questions/choose/', views.ChooseQuestionView.as_view(),
+        name='choose_question'
+    ),
+    path(
+        'questions/<int:course>/', views.questions,
+        name='questions'
+    ),
 
-    path('', views.index, name='index'),
-    path('faq/', views.faq, name="faq"),
-    
+    path(
+        #  The URL to choose which course to add questions to.
+        'questions/new/', views.NewQuestionView.as_view(), name='new_question'
+    ),
+    path(
+        #  The URL where you can add questions to selected course.
+        'questions/<int:course>/<int:total>/', views.add_question,
+        name='add_question'
+    ),
 
-    path('u/', include('django.contrib.auth.urls')),
-    path('u/register/', views.register, name="register"),
-    
-    
-    path('user/<username>/', views.profile, name="profile"),
-    path('user/<username>/<int:t>/edit/', views.edit_profile, name="edit_profile"),
-    
-    
-    path("questions/choose/", views.choose_question, name="choose_question"),
-    path("questions/<int:course>/<int:level>/<int:semester>/", views.questions, name="questions"),
+    path(
+        #  The URL to choose which semester result to view.
+        'results/semester/', views.ShowSemesterResultView.as_view(),
+        name='show_semester_result'
+    ),
+    path(
+        #  The URL to view selected semester results.
+        'results//<int:level>/<int:semester>/',
+        views.SemesterResultDetail.as_view(), name='semester_result'
+    ),
 
+    path(
+        #  The URL to choose which course result to view.
+        'results/course/', views.ShowCourseResultView.as_view(),
+        name='show_course_result'
+    ),
+    path(
+        #  The URL to view selected course result.
+        'results/<int:course>/',
+        views.CourseResultDetail.as_view(), name='course_result'
+    ),
 
-    path("questions/new/", views.new_question, name="new_question"),
-    path("questions/<int:course>/<int:level>/<int:semester>/<int:total>/", views.add_question, name="add_question"),
-    
-    
-    path("results/semester/", views.show_semester_result, name="show_semester_result"),
-    path("results/<username>/<int:level>/<int:semester>/", views.semester_result, name="semester_result"),
-    
-    path("results/course/", views.show_course_result, name="show_course_result"),
-    path("results/<username>/<int:course>/<int:level>/<int:semester>/", views.course_result, name="course_result"),
-    
-    path("level_result/choose/", views.choose_level_result, name="choose_level_result"),
-    path("level_result/<int:level>/", views.level_result, name="level_result"),
+    path(
+        #  The URL to choose which level/session result to view.
+        'level_result/choose/', views.ShowLevelResultView.as_view(),
+        name='choose_level_result'
+    ),
+    path(
+        #  The URL to view selected level/session results.
+        'level_result/<int:level>/', views.LevelResultList.as_view(),
+        name='level_result'
+    ),
 
+    #  The URL to choose which answer script to mark.
+    path('mark_script/', views.MarkScriptView.as_view(), name='mark_script'),
+    path(
+        #  The view to mark selected script.
+        'mark_scripts/<int:course>/', views.mark_scripts, name='mark_scripts'
+    ),
 
-    path("mark_answer/", views.mark_answer, name="mark_answer"),
-    path("mark_answers/<int:course>/<int:level>/<int:semester>/", views.mark_answers, name="mark_answers"),
-    
-    
-    path("compile_result/", views.compile_result, name="compile_result"),
-    path("compiled_results/<int:level>/<int:semester>/", views.compiled_results, name="compiled_results"),
+    path(
+        #  The view to choose which results to compile.
+        'compile_result/', views.CompileResultView.as_view(),
+        name='compile_result'
+    ),
+    path(
+        #  The view to mark selected results.
+        'compile_results/<int:level>/<int:semester>/', views.compile_results,
+        name='compile_results'
+    ),
 
+    path(
+        #  The view to choose which courses to register.
+        'register_course/', views.RegisterCourseView.as_view(),
+        name='register_course'
+    ),
+    path(
+        # View for registering selected courses.
+        'register_courses/<int:level>/<int:semester>/',
+        views.register_courses, name='register_courses'
+    ),
 
-    path("register_course/<username>/", views.register_course, name="register_course"),
-    path("register_courses/<username>/<int:level>/<int:semester>/", views.register_courses, name="register_courses"),
+    path(
+        # View for choosing which registered course to display.
+        'registered_course/', views.ShowRegisteredCourseView.as_view(),
+        name='registered_course'
+    ),
+    path(
+        # View for displaying selected registered courses.
+        'registered_courses/<int:level>/<int:semester>/',
+        views.RegisteredCoursesList.as_view(), name='registered_courses'
+    ),
 
-    path("registered_course/<username>/", views.registered_course, name="registered_course"),
-    path("registered_courses/<username>/<int:level>/<int:semester>/", views.registered_courses, name="registered_courses"),
+    # The URL for generating examination tokens.
+    path('gen_tokens/', views.gen_token, name='gen_tokens'),
+    # The URL for choosing course tokens that will be displayed.
+    path('show_tokens/', views.ShowTokensView.as_view(), name='show_tokens'),
+    path(
+        # The URL for displaying selected course tokens.
+        'tokens/<int:level>/<int:semester>/<int:course>/',
+        views.tokens, name='tokens'
+    ),
 
+    path(
+        # The URL to choose which course tokens to flush/delete.
+        'flush_token/', views.ShowFlushTokensView.as_view(), name='flush_token'
+    ),
+    path(
+        # The URL for flushing/deleting selected course tokens.
+        'flush_tokens/<int:level>/<int:semester>/<int:course>/',
+        views.flush_tokens, name='flush_tokens'
+    ),
 
-    path("gen_tokens/<username>/", views.gen_token, name="gen_tokens"),
-    path("show_tokens/<username>/", views.show_tokens, name="show_tokens"),
-    path("tokens/<username>/<int:level>/<int:semester>/<int:course>/", views.tokens, name="tokens"),
-
-    path("flush_token/<username>/", views.flush_token, name="flush_token"),
-    path("flush_tokens/<username>/<int:level>/<int:semester>/<int:course>/", views.flush_tokens, name="flush_tokens"),
-
-    #
+    # Paths for adding countries, states, and lgas
+    # Should be removed when django countries package is installed.
+    path(
+        'insert_country/<country>', views.insert_country,
+        name='insert_country'
+    ),
+    path(
+        'insert_states/<country>', views.insert_states, name='insert_states'
+    ),
+    path('insert_lgas/<country>', views.insert_lgas, name='insert_lgas'),
 ]
-

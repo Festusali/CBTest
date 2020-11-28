@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Modify {{ user_detail.full_name|title }} Biodata{% endblock %}
+
+{% block content %}
+<header class="pb-5">
+    {% block title %}<h1> <span class="heading">Modify {{ user_detail.full_name|title }} Biodata</span></h1>
+    {% endblock %}
+    {% block sub_title %}<h3 class="sub-heading">Modify Personal, Kin, Sponsor And Programme Details</h3>
+    {% endblock %}
+</header>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div id="personalData" class="pb-5">
+        <h4>Personal Information</h4>
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_form.first_name|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_form.last_name|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.middle_name|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.email|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.birth_date|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.gender|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.status|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.religion|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.state|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.lga|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.home_town|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.perm_address|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.phone|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.contact_address|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.blood_group|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.genotype|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.signature|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ user_detail_form.pictures|as_crispy_field }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="sponsorData" class="pb-5">
+                <h4>Sponsor's Data</h4>
+                {{ sponsor_form|crispy }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="kinData" class="pb-5">
+                <h4>Next Of Kin's Data</h4>
+                {{ kin_form|crispy }}
+            </div>
+        </div>
+    </div>
+
+    <div id="programmeData" class="pb-2">
+        <h4>Programme Data</h4>
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.department|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.programme|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-4 mb-2">
+                {{ programme_form.level|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-4 mb-2">
+                {{ programme_form.reg_no|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-4 mb-2">
+                {{ programme_form.jamb_no|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.student_mode|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.student_type|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.entry_mode|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.study_mode|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.entry_year|as_crispy_field }}
+            </div>
+            <div class="form-group col-sm-6 mb-2">
+                {{ programme_form.graduation_year|as_crispy_field }}
+            </div>
+        </div>
+    </div>
+
+    {% comment "To test is out" %}
+    <div class="form-row">
+        <div class="form-group col-sm-6 mb-2">
+            {{ form.password1|as_crispy_field }}
+        </div>
+        <div class="form-group col-sm-6 mb-2">
+            {{ form.password2|as_crispy_field }}
+        </div>
+    </div>
+    {% endcomment %}
+
+    <div class="clearfix">
+        <a href="{% url 'index' %}" class="btn btn-danger float-left">Cancel</a>
+        <button type="submit" class="btn btn-success float-right">Proceed</button>
+    </div>
+</form>
+
+{% endblock %}

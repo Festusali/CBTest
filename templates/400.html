@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 
-{% block page_title %}400 | Suspecious Request{% endblock %}
-
-{% block title %}Suspecious Request{% endblock %}
-{% block sub_title %}Your Request Looks Suspecious And You Can Not Continue{% endblock %}
+{% block page_title %}Suspecious Request{% endblock %}
 
 {% block content %}
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <header class="pb-2">
+                {% block title %}
+                <h1>
+                    <span class="heading">
+                        Suspecious Request Detected!
+                    </span>
+                </h1>
+                {% endblock %}
+            </header>
+            <div>
+                We can't verify that your request is genuine.It appears suspicious to us and we can't honour that request. <br>
+                Please re-evaluate and then try again.<br><br>
 
-<div class="details">
-        <p>We can't verify that your request is genuine.<br>Please re-evalute what you want to do before trying again.</p><br>
-    <p>At the moment you can navigate to the <a href="{% url 'index' %}" title="Computer Based Test">Home Page</a></p>
-</div>
-
+                To get going immediately, please visit the <a href="{% url 'index' %}" class="btn btn-success btn-sm" title="Computer Based Test">Home Page</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
