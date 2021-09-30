@@ -23,10 +23,7 @@ body {
 }
 
 /* Rules for the side bar links. */
-aside a,
-aside a:visited,
-aside a:hover,
-aside a:active {
+aside a, aside a:visited, aside a:hover, aside a:active {
     color: white;
     text-decoration: none;
 }
@@ -72,14 +69,8 @@ h1 span.heading {
 }
 
 /* Rules for the heading elements. */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     color: #2d95eb;
-    text-shadow: 1px 2px lightgray;
 }
 
 /* clear fix for floated elements. */
