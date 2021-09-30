@@ -4,11 +4,59 @@
 {% block page_title %}Take Examination{% endblock %}
 
 {% block content %}
-<header class="pb-2">
+<header class="pb-2" xmlns="http://www.w3.org/1999/html">
     {% block title %}<h1> <span class="heading">Take Examination</span></h1>{% endblock %}
     {% block sub_title %}<h3 class="sub-heading">Answer Correctly the Questions</h3>
     {% endblock %}
+
+    <p id="timer" style="text-align: center; font-size: 60px; font-weight: bolder; text-align: right; margin-top: 0px;"></p>
+
+  <script>
+    // Get current time and set and time.
+    let startTime = new Date();
+    console.log("startTime: ", startTime);
+    let endTime = startTime.setHours(startTime.getHours() + 1 );
+    console.log("endTime: ", endTime);
+
+    // Update the count down every 1 second
+    let x = setInterval(function() {
+        // Get today's date and time
+        let now = new Date();
+            
+        // Find the remaining time.
+        let distance = endTime - now;
+            
+        // Calculate time left for examination.
+        let timeLeft = new Date(distance);
+            
+        // Display the time left for examination.
+        document.getElementById("timer").innerHTML = timeLeft.getHours() + "h " + timeLeft.getMinutes() + "m " + timeLeft.getSeconds() + "s";
+
+        // Check time left and change timer colour accordingly.
+        if (timeLeft.getHours() < 0 && timeLeft.getMinutes() < 5) {
+            // If exam time is less than 5 Minutes change timer to red colour.
+            document.getElementById("timer").style.color = "red";
+        } else if (timeLeft.getHours() < 0 && timeLeft.getMinutes() < 15) {
+            // If exam time is less than 15 Minutes change timer to yellow colour.
+            document.getElementById("timer").style.color = "yellow";
+            document.getElementById("timer").style.background = "#325feb";
+        } else if (timeLeft.getHours() < 0 && timeLeft.getMinutes() < 59) {
+            // If exam time is less than 30 Minutes change timer to red colour.
+            document.getElementById("timer").style.color = "blue";
+        } else {
+            // Set the normal timer colour to green.
+            document.getElementById("timer").style.color = "green";
+        };
+
+        // If exam time is over, automatically submit.
+        if (timeLeft.getMinutes() < 59 && timeLeft.getSeconds() < 5) {
+            clearInterval(x);
+            document.getElementsByTagName("form")[0].submit();
+        }
+    }, 1000);
+  </script>
 </header>
+
 <div class="details">
     <p class="note">Please ensure you choose your answers <span class="emphasis">correctly</span> as any wrong choice can not be <span class="emphasis">reversed</span> after <span class="emphasis">Submission</span>.</p>
 </div>
@@ -36,8 +84,8 @@
                 <input type="hidden" name="form-{{ forloop.counter0 }}-course" min="0"
                     id="id_form-{{ forloop.counter0 }}-course" value="{{ q.course.id }}">
 
-                <input type="hidden" name="form-{{ forloop.counter0 }}-semester" min="0"
-                    id="id_form-{{ forloop.counter0 }}-semester" value="{{ q.semester }}">
+                <input type="hidden" name="form-{{ forloop.counter0 }}-term" min="0"
+                    id="id_form-{{ forloop.counter0 }}-term" value="{{ q.term }}">
 
                 <input type="hidden" name="form-{{ forloop.counter0 }}-level" min="0"
                     id="id_form-{{ forloop.counter0 }}-level" value="{{ q.level }}">
@@ -101,5 +149,4 @@
         </div>
     </form>
 </div>
-
 {% endblock %}
