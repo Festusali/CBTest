@@ -14,7 +14,7 @@ flake8==3.8.3
 html5lib==1.1
 idna==2.10
 mccabe==0.6.1
-Pillow==8.3.2
+Pillow==9.3.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
 python-decouple==3.3
